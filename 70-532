@@ -1,0 +1,1736 @@
+1. Topic 1, Web-based Solution
+
+Background
+
+You are developing a web-based solution that students and teachers can use to collaborate on written assignments. Teachers can also use the solution to detect potential plagiarism, and they can manage assignments and data by using locally accessible network shares.
+
+Business Requirements
+
+The solution consists of three parts: a website where students work on assignments and where teachers view and grade assignments, the plagiarism detection service, and a connector service to manage data by using a network share.
+
+The system availability agreement states that operating hours are weekdays between midnight on Sunday and midnight on Friday.
+
+Plagiarism Service
+
+The plagiarism detection portion of the solution compares a new work against a repository of existing works. The initial dataset contains a large database of existing works. Teachers upload additional works. In addition, the service itself searches for other works and adds those works to the repository.
+
+Technical Requirements
+
+Website
+
+The website for the solution must run on an Azure web role.
+
+Plagiarism Service
+
+The plagiarism detection service runs on an Azure worker role. The computation uses a random number generator. Certain values can result in an infinite loop, so if a particular work item takes longer than one hour to process, other instances of the service must be able to process the work item. The Azure worker role must fully utilize all available CPU cores. Computation results are cached in local storage resources to reduce computation time.
+
+Repository of Existing Works
+
+The plagiarism detection service works by comparing student submissions against a repository of existing works by using a custom matching algorithm. The master copies of the works are stored in Azure blob storage. A daily process synchronizes files between blob storage and a file share on a virtual machine (VM). As part of this synchronization, the ExistingWorkRepository object adds the files to Azure Cache to improve the display performance of the website. If a student’s submission is overdue, the Late property is set to the number of days that the work is overdue. Work files can be downloaded by using the Work action of the TeacherController object
+
+Network Connector
+
+Clients can interact with files that are stored on the VM by using a network share. The network permissions are configured in a startup task in the plagiarism detection service.
+
+Service Monitoring
+
+The CPU of the system on which the plagiarism detection service runs usually limits the plagiarism detection service.
+
+However, certain combinations of input can cause memory issues, which results in decreased performance. The average time for a given computation is 45 seconds. Unexpected results during computations might cause a memory dump. Memory dump files are stored in the Windows temporary folder on the VM that hosts the worker role.
+
+Security
+
+Only valid users of the solution must be able to view content that users submit. Privacy regulations require that all content that users submit must be retained only in Azure Storage. All documents that students upload must be signed by using a certificate named DocCert that is installed in both the worker role and the web role.
+
+Solution Development
+
+You use Microsoft Visual Studio 2013 and the Azure emulator to develop and test both the compute component and the storage component. New versions of the solution must undergo testing by using production data.
+
+Scaling
+
+During non-operating hours, the plagiarism detection service should not use more than 40 CPU cores. During operating hours, the plagiarism detection service should automatically scale when 500 work items are waiting to be processed. To facilitate maintenance of the system, no plagiarism detection work should occur during non-operating hours. All ASP.NET MVC actions must support files that are up to 2 GB in size.
+
+Biographical Information
+
+Biographical information about students and teachers is stored in a Microsoft Azure SQL database. All services run in the US West region. The plagiarism detection service runs on Extra Large instances.
+
+Solution Structure
+
+Relevant portions of the solution files are shown in the following code segments. Line numbers in the code segments are included for reference only and include a two-character prefix that denotes the specific file to which the line belongs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DRAG DROP
+
+You need to configure storage for the solution.
+
+What should you do? To answer, drag the appropriate XML segments to the correct locations. Each XML segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+2. You are deploying the web-based solution in the West Europe region.
+
+You need to copy the repository of existing works that the plagiarism detection service uses. You must achieve this goal by using the least amount of time.
+
+What should you do?
+
+  A. Copy the files from the source file share to a local hard disk. Ship the hard disk to the West Europe data center by using the Azure Import/Export service.
+  B. Create an Azure virtual network to connect to the West Europe region. Then use Robocopy to copy the files from the current region to the West Europe region.
+  C. Provide access to the blobs by using the Microsoft Azure Content Delivery Network (CDN). Modify the plagiarism detection service so that the files from the repository are loaded from the CD
+  D. Use the Asynchronous Blob Copy API to copy the blobs from the source storage account to a storage account in the West Europe region.
+3. HOTSPOT
+
+You need to find all existing works about World History that are overdue and are stored in the repository.
+
+How should you complete the relevant code? To answer, select the appropriate option or options in the answer area.
+
+
+
+
+4. DRAG DROP
+
+You need to insert code at line WR16 to implement the GetWork method.
+
+How should you complete the relevant code? To answer, drag the appropriate code segment to the correct location. Each code segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+5. HOTSPOT
+
+The Compute method in the PlagiarismCalculation class takes a significant amount of time to load existing works from blob storage. To improve performance, the service must load existing works from the cache.
+
+You need to modify the Compute method in the class PlagiarismCalculation.
+
+How should you modify the method? To answer, select the appropriate option or options in the answer area.
+
+
+
+
+6. You update the portion of the website that contains biographical information about students.
+
+You need to provide data for testing the updates to the website.
+
+Which approach should you use?
+
+  A. Use SQL Server data synchronization.
+  B. Use the Active Geo-Replication feature of Azure SQL Database.
+  C. Use SQL Replication.
+  D. Use the Geo-Replication feature of Azure Storage.
+7. HOTSPOT
+
+You need to configure scaling for the plagiarism detection service.
+
+What should you do? To answer, select the appropriate values in the dialog box in the answer area.
+
+
+
+
+8. HOTSPOT
+
+You need to implement the Work action on the TeacherController object.
+
+How should you complete the relevant code? To answer, select the appropriate options in the answer area.
+
+
+
+
+9. DRAG DROP
+
+You recently started working with a client named Contoso, Ltd. The client reports that hackers have compromised devices on its network.
+
+You need to ensure that devices from Contoso cannot connect to your corporate network.
+
+How should you complete the relevant Windows PowerShell script? To answer, drag the appropriate Azure PowerShell segment to the correct location. Each Azure PowerShell segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+10. Topic 2, Contoso, Ltd
+
+Background
+
+Contoso, Ltd. is developing a patient monitoring solution for a hospital. The solution consists of an Azure website and a set of mobile applications that health care providers use to monitor patients remotely.
+
+Monitoring devices that run the embedded version of Windows will be attached to patients. The devices will collect information from patients and will transmit real-time continuous data to a service that runs on Azure. The service collects and distributes data. The data that the service provides must be accessible by the website and by the mobile applications.
+
+Business Requirements
+
+Patients
+
+All patient data must be stored securely on Azure. Data security must meet or exceed Health Insurance Portability and Accountability Act of 1996 (HIPAA) standards in the United States and must meet or exceed ISO/ICE 27002 data security standards in the rest of the world.
+
+Contractors
+
+Third-party contractors will develop the mobile applications. All contractors must develop the applications by using virtual machines (VMs) that are hosted on Azure. Only authorized contractors and authorized IP addresses are permitted to access the VMs. The contractors can use Near Field Communication (NFC) tags to launch Remote Desktop (RD) connections to the VMs from NFC-enabled devices. For testing purposes, contractors must be able to run multiple instances of mobile applications within the VMs.
+
+Data Collection and Distribution Service
+
+The service must monitor the patient data and send out alerts to health care providers when specific conditions are detected. The service must send the alerts to mobile applications and to the website in real time so that doctors, nurses, and caregivers can attend to the patient. Partner organizations and diagnostic laboratories must be able to securely access the data and the website from remote locations.
+
+Current Issues
+
+A partner that is testing a prototype of the website reports that after signing in to the website, the partner is redirected to the settings page instead of to the home page.
+
+The data from the patient devices is slow to appear on the website and does not always appear. All patient devices online have active connections to the data collection service.
+
+Technical Requirements
+
+Contractors
+
+All contractors will use virtual machines that are initially configured as size A3. Contractors must sign in to the assigned VM by using IP addresses from a list of preapproved addresses.
+
+Data Collection and Distribution Service
+
+All deployed services must send an alert email to watchguard@contoso.com when any of the following conditions is met:
+
+Website and Mobile Devices
+
+The website must be secure and must be accessible only within the hospital’s physical grounds. All mobile applications and websites must be responsive. All websites must produce error logs that can be viewed remotely.
+
+Virtual Machines
+
+Application Structure
+
+Relevant portions of the application files are shown in the following code segments. Line numbers in the code segments are included for reference only and include a two-character prefix that denotes the specific file to which they belong.
+
+
+
+
+
+DRAG DROP
+
+You need to configure a VM for a new contractor.
+
+Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+11. HOTSPOT
+
+You run the following Windows PowerShell script. Line numbers are included for reference only.
+
+
+
+For each of the following statements, select Yes if the statement is true. Otherwise, select No.
+
+
+
+
+12. The website does not receive alerts quickly enough.
+
+You need to resolve the issue.
+
+What should you do?
+
+  A. Enable automatic scaling for the website.
+  B. Manually Increase the instance count for the worker role.
+  C. Increase the amount of swap memory for the VM instance.
+  D. Set the monitoring level to Verbose for the worker role.
+  E. Enable automatic scaling for the worker role.
+13. HOTSPOT
+
+You need to implement the worker role to support the real-time continuous data-collection service.
+
+How should you complete the relevant code? To answer, select the appropriate option or options in the answer area.
+
+
+
+
+14. You need to implement data storage for patient information.
+
+What should you do?
+
+  A. Use the Update Entity operation of the Table Service REST AP
+  B. Use the Put Blob operation of the Blob Service REST AP
+  C. Use the Put Message operation of the Create Queue REST AP
+  D. Use the Set Share Metadata operation of the File Service REST AP
+15. You create a VM named cVM_005 for a newly hired contractor.
+
+The contractor reports that the VM runs out of memory when the contractor attempts to test the mobile applications.
+
+You need to double the memory that is available for the VM.
+
+Which Windows PowerShell command should you use?
+
+
+
+  A. Option A
+  B. Option B
+  C. Option C
+  D. Option D
+16. Users report that after periods of inactivity the website is slow to render pages and to process sign-in attempts.
+
+You need to ensure that the website is always responsive.
+
+What should you do?
+
+  A. Add the following markup at line WC14:<sessionState timeout-"86400" />
+  B. Add the following markup at line WC08:<add key="timeout" value="null" />
+  C. Add the following markup at line WC14:<sessionState timeout="fl" />
+  D. In the Azure management portal, enable Always On support for the website.
+  E. In the Azure management portal, disable Always On support for the website.
+17. HOTSPOT
+
+You configure alerts in Azure. The metrics shown in the following exhibit represent the average values for each five-minute period.
+
+
+
+To answer, make the appropriate selections in the answer area.
+
+
+
+
+18. You need to implement tracing for the website after the website is deployed.
+
+Which code segment should you insert at line CF13?
+
+
+
+  A. Option A
+  B. Option B
+  C. Option C
+  D. Option D
+19. DRAG DROP
+
+Contoso, Ltd. reports that hackers have compromised a computer on its network.
+
+You need to prevent access to the site from all Contoso, Ltd. computers.
+
+How should you complete the relevant Windows PowerShell script? To answer, drag the appropriate Windows PowerShell segment to the correct location. Each Windows PowerShell segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+20. You need to implement error logging.
+
+Which code segment should you insert at line CF13?
+
+
+
+  A. Option A
+  B. Option B
+  C. Option C
+  D. Option D
+21. You need to implement data storage for patient information.
+
+What should you do?
+
+  A. Use the Set Blob Properties operation of the Blob Service REST AP
+  B. Use the Insert Entity operation of the Table Service REST AP
+  C. Use the Set Queue Metadata operation of the Create Queue REST AP
+  D. Use the Query Entities operation of the Table Service REST AP
+22. There is a lengthy delay between the time an alert is sent and when it is received by the Web App.
+
+You need to resolve the issue.
+
+What should you do?
+
+  A. Increase the amount of swap memory for the VM instance,
+  B. Enable automatic scaling for the Web App.
+  C. Decrease the instance count for the worker role.
+  D. Enable automatic scaling for the worker role.
+  E. Set the monitoring level to Verbose for the worker role.
+23. Topic 3, Mortgage Loan
+
+Background
+
+A company is developing a website that supports mortgage loan processing. You use the Azure management portal to create a website. You initially configure the website to use the Basic hosting plan. You register a custom domain for the website with a valid registrar.
+
+Customers complete mortgage applications and upload supporting documents to the website. A custom executable named FileProcessor.exe processes all of the information received. An on-premises server that runs Windows Server hosts the executable.
+
+You create a virtual hard disk (VHD) image of the on-premises server. You plan to use this VHD to replace the on-premises server with a new virtual machine (VM) that is hosted in Azure.
+
+Business Requirements
+
+Business stakeholders have identified the following requirements for the mortgage loan processing website:
+
+・ The website must provide a secure mortgage application process for the customer.
+
+・ Business users must validate new versions of the website before you publish them to the production site. You must be able to revert to the previous version easily when issues arise.
+
+・ The website must remain available to users while new features and bug fixes are deployed.
+
+・ Network traffic must be monitored on all ports that the website uses.
+
+Technical Requirements
+
+General:
+
+・ You must develop the website by using Microsoft Visual Studio 2013.
+
+・ The website must be stateless. Subsequent requests from a user might or might not be routed back to the website instance that the user initially connected to.
+
+Security:
+
+You must secure the custom domain and all subdomains by using SSL.
+
+Storage:
+
+・ The custom executable must use native file system APIs to share data between different parts of the website.
+
+・ The custom executable must continue to use a network file share to access files.
+
+Monitoring:
+
+The website must use port 6000 with UDP to submit information to another process. This port must be actively monitored by using the same external port number.
+
+Deployment:
+
+・ You must deploy the VM and the associated VHD. You will need to move this VM to a different Azure subscription after deployment.
+
+・ You must establish a continuous deployment process that uses staged publishing.
+
+・ The custom domain must handle requests for multiple subdomains.
+
+・ The custom domain must use a www CNAME record that points to the domain’s @ A record.
+
+・ The custom executable must run continuously and must be deployed as an Azure web job named FileProcessor
+
+・ Application Request Routing (ARR) affinity must be disabled for the website.
+
+Solution Structure
+
+The solution structure for the website is shown in the following exhibit.
+
+
+
+HOTSPOT
+
+You need to implement endpoint monitoring.
+
+What should you do? To answer, configure the appropriate options in the dialog box in the answer area.
+
+
+
+
+24. You need to debug the website remotely.
+
+Which three actions should you take? Each correct answer presents part of the solution.
+
+  A. In the Azure management portal, configure a monitoring endpoint.
+  B. In the Azure management portal, set remote debugging to On and set the Visual Studio version to 2013.
+  C. Install the Azure SDK for .NET on the computer that runs Visual Studio.
+  D. In the web.config file for the website, set the debug attribute of the compilation element to true.
+  E. In the Azure management portal, set the web hosting plan to Standard.
+25. You need to move the VM.
+
+What should you do?
+
+  A. Use the Blob Service REST API
+  B. Use the Service Management REST API
+  C. Run the Azure PowerShell Convert-VHD cmdlet.
+  D. Run the Azure PowerShell New-AzureVMcmdlet
+26. You need to configure session affinity for the website.
+
+Which two actions will achieve the goal? Each correct answer presents a complete solution.
+
+
+
+  A. Option A
+  B. Option B
+  C. Option C
+  D. Option D
+27. DRAG DROP
+
+You need to complete the domain configuration for the website.
+
+Which four actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+28. You need to implement the web application deployment workflow.
+
+In the Azure management portal, what should you do?
+
+  A. Set the web hosting plan to Shared. Increase the instance count to 2. Publish the incremental updates to the new instance.
+  B. Set the web hosting plan to Standard. Use Windows PowerShell to create a new deployment slot to publish the incremental updates. Swap the deployment slot after the business users have validated the updates.
+  C. Set the web hosting plan to Standard. Create a new website to host the updated web application. Create a Windows PowerShell script to move the contents of the new website to the production website location after the business users have validated the updates.
+  D. Download the publish profile. Use Visual Studio to import the publish profile. Deploy the web application by using the Visual Studio Publish Web wizard after the business users have validated the updates.
+29. You need to choose an Azure storage service solution.
+
+Which solution should you choose?
+
+  A. Queue storage
+  B. Blob storage
+  C. File storage
+  D. Table storage
+30. DRAG DROP
+
+You need to create the VM to replace the on-premises server.
+
+Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+31. DRAG DROP
+
+You need to secure the website.
+
+Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+32. HOTSPOT
+
+You need to deploy the FileProcessor.exe program.
+
+How should you update the project configuration file for the program? To answer, select the appropriate option or options in the answer area.
+
+
+
+
+33. You need to select an Azure storage service solution for completed mortgage applications and supporting documents.
+
+Which solution should you use?
+
+  A. table storage
+  B. blob storage
+  C. queue storage
+  D. file storage
+34. Topic 4, File Tax-Related Document
+
+Background
+
+You are developing an Azure solution that individuals and small businesses will use to prepare and file tax-related documents.
+
+Business Requirements
+
+General
+
+The solution must provide a way for customers to enter personal and demographic information. Customers must be able to upload income documents and related documents to the solution. The solution must provide reports and summary documents for customers in PDF format.
+
+Scope and Device Accessibility
+
+The solution must support two operational modes: On-Peak and Off-Peak. On-Peak is defined as the first quarter of a year. Off-Peak is defined as the other three quarters of a year. Customers must be able to access the solution by using desktop computers, laptop computers, mobile devices, and tablets.
+
+High Availability and Business Continuity
+
+The solution must be available at all times. When the solution transitions between Off-Peak mode and On-Peak mode, solution availability must not be affected. Disaster recovery must be established for the customers’ stored data.
+
+Diagnostics
+
+The solution must log relevant diagnostic data that can be used to troubleshoot the cloud service.
+
+Scalability
+
+The solution must scale out while transitioning from Off-Peak mode to On-Peak mode.
+
+Cost
+
+The solution must use cloud resources optimally to minimize operating costs.
+
+Storage and Security
+
+The solution must be secure to prevent any anonymous access (including read access) to the customers’ tax documents.
+
+Cross-Premises Networking
+
+The solution must extend the developers’ on-premises network into Azure.
+
+Technical Requirements
+
+The logical design for the solution is shown in the following exhibit.
+
+
+
+Platform-as-a-Service (PaaS)
+
+The solution must have two roles: a web role and worker role. The web interface of the solution uses a web role to accept and send user input and any related documents. The worker role must access the stored data and prepare the tax documents in the background.
+
+Compute
+
+The solution must support a minimum of 10 role instances. When the solution is in On-Peak mode, each role instance must be allocated at least 6 GB of memory. The memory can be scaled down to 3 GB when the solution is in Off-Peak mode.
+
+The solution must cache documents locally. The cache does not need to be refreshed during the lifecycle of the worker role.
+
+Role instances that are running should not be affected by topology changes such as an increase in instance count.
+
+Storage
+
+The web role must store documents in blob storage. A SQL database is used to store customer information. The worker role must use queues to process the final tax documents.
+
+Performance and Scalability
+
+When the solution is in Off-Peak mode, it must support at least 150 concurrent database sessions, and the maximum size of the database is 50 GB. When the solution is in On-Peak mode, it must support 750 concurrent database sessions, and the maximum size of the database is 300 GB. Geo-replication must be enabled and must be configurable by using the Azure management portal.
+
+Software Prerequisites
+
+The solution must install the software that is necessary to generate PDF documents on the server. The software will be provided as a Windows Installer package.
+
+Debugging
+
+Solution errors and warnings that occur in a web role must be logged. The worker role must log any crash dump files. Detailed information about errors and their context must be collected so that the environment in which errors occurred can be simulated locally.
+
+Security
+
+At the time that a customer’s tax information and documents are accepted, the solution must send an email to the customer. The email contains a secure hyperlink that the customer can use to upload any additional necessary documents. The customer is asked to upload these documents within 48 hours. If the customer does not upload the documents within 48 hours, the solution should not issue a new hyperlink. The solution must send an email to the customer to remind the customer to use the original hyperlink to upload any additional necessary documents.
+
+Network Services
+
+The solution must use a cross-premises secure network. The network must be configurable by using the Azure management portal.
+
+Social Structure
+
+Relevant portions of the solution files are shown in the following code segments. Line numbers in the code segments are included for reference only and include a two-character prefix that denotes the specific file to which they belong.
+
+
+
+
+
+You need to configure diagnostics for the Azure solution.
+
+Which two types of diagnostic data should you collect? Each correct answer presents part of the solution.
+
+  A. Application logs
+  B. Event logs
+  C. Crash dumps
+  D. Infrastructure logs
+  E. IIS logs
+  F. Performance counters
+35. You need to configure the virtual network.
+
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. Configure a point-to-site virtual network.
+  B. Configure a site-to-site virtual network.
+  C. Configure a multi-site virtual network.
+  D. Configure a cloud-only virtual network.
+36. You need to configure role instances.
+
+Which size should you specify for the VM?
+
+  A. Use Small for Off-Peak mode.
+  B. Use Large for On-Peak mode.
+  C. Use Extra Large for On-Peak mode.
+  D. Use Extra Small for Off-Peak mode.
+37. You need to meet the performance and scalability requirements.
+
+Which SQL Database configuration should you use?
+
+  A. Use the S1 performance level for On-Peak mode.
+  B. Use the P2 performance level for On-Peak mode.
+  C. Use the S2 performance level for On-Peak mode.
+  D. Use the P1 performance level for On-Peak mode.
+38. DRAG DROP
+
+You need to insert markup at line SD22 to install the software that generates PDF documents.
+
+How should you complete the relevant markup? To answer, drag the appropriate code segments to the correct locations. Each code segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+39. HOTSPOT
+
+You need to insert code at line SB11 to apply the storage access policy.
+
+How should you complete the relevant code segment? To answer, select the appropriate option or options in the answer area.
+
+
+
+
+40. You need to debug the Azure solution.
+
+Which tool should you use?
+
+  A. Compute emulator
+  B. Remote debugging
+  C. Emulator Express
+  D. IntelliTrace
+  E. Profiling
+41. DRAG DROP
+
+You need to develop the web role.
+
+How should you complete the relevant code? To answer, drag the appropriate code segments to the correct locations. Each code segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+42. DRAG DROP
+
+You need to meet the high availability and business continuity requirements.
+
+Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+43. DRAG DROP
+
+You need to insert code at line SB17 to create the hyperlink that customers use to upload additional necessary documents.
+
+How should you complete the relevant code? To answer, drag the appropriate code segments to the correct locations. Each code segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+44. HOTSPOT
+
+You need to insert markup at line SD06 to cache the client documents.
+
+How should you complete the relevant markup? To answer, select the appropriate option or options in the answer area.
+
+
+
+
+45. Topic 6, Fabrikam
+
+Background
+
+You are a developer for Fabrikam, a company that specializes in payment processing. Fabrikam is developing a solution to process payments for various events, such as music concerts. You develop an ASP.NET MVC website that is hosted in Azure to support an upcoming music concert. The music concert is expected to generate a large volume of ticket sales in a short amount of time.
+
+The website uploads information to an Azure storage queue. A worker role in Azure retrieves information from the queue and generates the concert tickets in a PDF file form.it after the financial transaction is approved.
+
+You observe a delay between the time the website adds a message to a queue and the time it becomes available to read from the queue. After examining the queue, you determine that no queue messages have a DequeueCount value greater than zero. The website does not throw any errors.
+
+Business Requirements
+
+Payments
+
+The music concert website must be able to submit event payment information for processing. The website must remain responsive while submitting payment information. Customers must be able to add notes about their orders to a free-form control on the website. These notes must be submitted wtth tne payment when tne customer submits an order.
+
+Customers often enter notes that exceed 7 KB in size.
+
+Technical Requirement
+
+Payment Submission and processing
+
+Event payment information must be sent from the website to a Windows Communication Foundation (WCF) service worker role. The worker role must submit the information to the payment processor in JSON format.
+
+Payment Processing
+
+You have the following payment processing requirements:
+
+*If the number of messages in a queue goes above or below a specified threshold, worker role instances must be created or deleted as needed. This process must be completed by using the least amount of effort It must be easy to reconfigure role instance thresholds.
+
+*Payments must be retrieved from the queue in the maximum batch sizes that are allowed by the queue and pulled from the queue for 5 minutes.
+
+*The payment queue must not be re-created when processing payments.
+
+*During single Payment processing, the number of tickets available for an event must be updated. The update operation must be retried for 30 seconds or 5 retry attempts, whichever occurs first. Each retry should pause for at least two seconds and for one second longer than the previous attempt. If the update fails, the payment should be placed in the poison queue.
+
+Storage
+
+You have the following storage requirements:
+
+*Payment information must be stored by using Azure Queue storage. Connection to the Azure storage account has been established in a configured setting named StorageConnectionString, which is configured for the web and worker roles.
+
+* A payment processing queue and a poison payment queue must be used when processing payments.
+
+* Azure Queue message content must be XML-safe and UTF-8 encoded.
+
+* An Azure storage account must be established for diagnostic information in a configured setting named DiagnosticsStoragcConnectionString, which is configured for both the web and worker roles.
+
+Security and Monitoring
+
+Security
+
+The web role must be secured by using HTTPS.
+
+Monitoring
+
+You must collect diagnostic data for both the web and worker roles by using the Diagnostics module. Diagnostics configuration changes must not require the code of the roles to be rebuilt. The diagnostic data is used for debugging and troubleshooting, measuring performance, monitoring resource usage, traffic analysis and capacity planning, and auditing.
+
+Performance testing must evaluate the roles under normal and stress conditions without incurring charges for running Azure. Memory allocation, function time, and multithreading concurrency issues must be evaluated.
+
+Deployment
+
+You purchase a custom domain name fabrikamfunding.com to host the website, web role, and worker roles. You must deploy an HTTPS certificate with the web role, and you must update associated configuration files accordingly.
+
+Web role and worker role instance sizes must be specified as Medium. You must deploy one web role instance named FabrikamFundingPaymentGenerator, and worker role instances named FabrikamFundingPayment Processor.
+
+Application Structure
+
+Relevant portions of the app files are shown below. Line numbers are included for reference only and include a two-character prefix that denotes the specific file to which they belong.
+
+
+
+
+
+
+
+HOTSPOT
+
+You need to implement the SendMessagesAsync method in the QueueManager class.
+
+How should you complete the relevant code? To answer, select the appropriate code segment from each list in the answer area.
+
+
+
+
+46. The SendMessageAsync method of the QueueManager class occasionally throws errors.
+
+You need to correct the errors.
+
+What should you do?
+
+  A. Update the QueueManager to use the Put Message operation of the Queue Service REST AP
+  B. Use HTTP compression for all calls made to the REST AP
+  C. Encode the notesfield content by using UTF-32 encoding.
+  D. UpdateSendMessageAsyncmethod of the QueueManagerclass to store the notesfield in BLOB storage. Update the EventPaymentclass to store the BLOB uniform resource identifier (URI). Extract the notes BLOB information by using the BLOB URI in the ProcessMessagesAsyncmethod of the QueueManagerclass.
+  E. Update the notesfield to a byte array. Binary encode and decode the notescontent when sending or receiving an EventPaymentclass.
+47. DRAG DROP
+
+You are developing an ASP.NET Web App that makes a large number of calls to Azure Blob storage.
+
+You observe that the app suffers from Azure Blob storage throttling.
+
+You need to resolve throttling failures when loading data from Azure Blob storage.
+
+What should you do? To answer, drag the appropriate code segment to the correct location. Each code segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content
+
+NOTE: Each correct selection is worth one point.
+
+
+
+
+48. You need to diagnose the source of the performance issues when preparing concert tickets.
+
+Which two actions should you perform? Each correct answer presents a complete solution.
+
+NOTE: Each correct selection is worth one point.
+
+  A. Examine the Storage Logging logs for any queue operations that have higher than expected latency.
+  B. Examine the Storage Client Library logs to determine whether there is a decrease in the total number of requests for storage operations.
+  C. Examine the diagnostic message logs for the worker role to determine whether the worker role is failing to process messages.
+  D. Examine the Storage Client Library logs to determine whether there are repeated retries for storage operations.
+49. The SendMessageAsync method of the QueueManager class occasionally throws errors.
+
+You need to correct the errors.
+
+What should you do?
+
+  A. Remove all attributes from the EventPayment class.
+  B. Encode the notes field content by using UTF-32 encoding.
+  C. Update the notes field to a byte array. Binary encode and decode the notes content when sending or receiving an EventPayment class.
+  D. Update the SendMessageAsync method of the QueueManager class to store the notes field in BLOB storage. Update the EventPayment class to store the BLOB uniform resource identifier (URI). Extract the notes BLOB information by using the BLOB URI in the ProcessMessagesAsync method of the QueueManager class.
+50. DRAG DROP
+
+You need to implement the ProcessPaymentAsync method in the QueueManager class.
+
+Develop the solution by selecting and arranging the required code blocks in the correct order.
+
+NOTE: You will not need all of the code segments.
+
+
+
+
+51. Topic 7, ProseWare Inc
+
+Background:
+
+You are a developer for ProseWare Inc., a software-as-a-service (SaaS) company that provides a comment system that websites use to allow for end users to post comments associated with a webpage or topic on a customer’s website.
+
+Business requirements
+
+Moderation:
+
+The moderation of comments is a feature of the software, and usually involves the editing of a comment.
+
+Only users who have accounts in a group in Azure Active Directory (Azure AD) have the ability moderate. External users can also become moderators, but only by explicit invitation.
+
+Any moderation action must include the name of the moderator.
+
+Comment navigation:
+
+Each comment is identified by a unique string consisting of a random string of characters.
+
+Within the body of a comment, internal links to other comment threads can be specified using the link format: “/<parent comment id> / <child comment id>”
+
+Comment search:
+
+Comments can be searched using Azure Search. Searches must do the following:
+
+・ Searching for email addresses must match email addresses in comments.
+
+・ Searching must work for the client’s language.
+
+・ Internal links to other comments using the link format should be searched.
+
+Content screening:
+
+Comment content is screened for inappropriate language, length, and topic using content analysis. Content must be screened, but can appear prior to be screened.
+
+Mobile App:
+
+The moderation functionality can be accessed using a Universal Windows Platform (UWP) app named ProsewareApp. The app includes functionality that notifies moderators when changes are made to a comment they modified.
+
+Export:
+
+Customers can perform an export of all comments to a customer supplied Microsoft OneDrive folder on demand. The export functionality is implemented as an Azure Logic App, and it must be able to be triggered by the customer from their local network.
+
+Interaction agents:
+
+Interaction agents are parts of the system that interact with comment threads. The main purpose is to modify a comment’s body based on the contents of the comment. For example, one of the agents is WikiAgent, which adds links to Wikipedia articles when it sees text in the comment body that exactly matches a Wikipedia article title. Interaction Agents are implemented in Service Fabric.
+
+Interaction agents must meet the following requirements:
+
+・ Only successfully process each comment once
+
+・ Any errors encountered during the processing of a comment should be retried
+
+・ Must run on systems that allow for custom applications to be installed
+
+・ Must run in a VNet or private network space
+
+・ Must be run on a system that can scale up and down based on demand
+
+・ A single user’s usage of Interaction Agents must not impact other users’ usage of Interaction Agents
+
+Technical requirements
+
+Authentication:
+
+ProseWare Inc. allows for user authentication through Azure AD and Twitter.
+
+Storage:
+
+The application runs as a Web App on Azure. Comments are stored in an Azure DocumentDB database named “Proseware”.
+
+Performance:
+
+The product includes a service level agreement (SLA) for individual method performance. All data retrieval methods must return within 100ms 99% of the time.
+
+API:
+
+The ProseWare Inc. API is made available to public callers using an Azure API App. Azure AD and Twitter are the Authentication Providers.
+
+Application structure
+
+CommentController.cs:
+
+
+
+
+
+cleaner.csx:
+
+
+
+ICommentAgent.cs:
+
+
+
+WikiAgent.cs:
+
+
+
+Comment.cs:
+
+
+
+DataStore.cs:
+
+
+
+MainPage.xaml.cs:
+
+
+
+Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.
+
+After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+
+You need to ensure that moderators can be added to the system.
+
+Which authentication approach should you use?
+
+  A. Microsoft Office 365 directory
+  B. Azure AD self-service signup
+  C. Azure AD Organizational Units (OU)
+  D. Active Directory Federation
+52. Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.
+
+After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+
+You need to implement the infrastructure for the Interaction Agents.
+
+Solution: Create a Service Fabric cluster with Bronze durability and reliability tiers.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+53. Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.
+
+After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+
+You need to implement the infrastructure for the Interaction Agents.
+
+Solution: Create an Azure virtual machine (VM) scale set and use Azure Desired State Configuration (DSC) extension handler to install Service Fabric runtime.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+54. Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.
+
+After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+
+You need to implement the infrastructure for the Interaction Agents.
+
+Solution: Create a set of Azure virtual machines (VMs) using Azure Resource Manager (ARM) templates, and use Chef to install the Service Fabric runtime.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+55. Note: This question is part of a series of questions that present the same scenario. Each question in the series contains a unique solution that might meet the stated goals. Some question sets might have more than one correct solution, while others might not have a correct solution.
+
+After you answer a question in this section, you will NOT be able to return to it. As a result, these questions will not appear in the review screen.
+
+You need to implement the infrastructure for the Interaction Agents.
+
+Solution: Create an Azure Container Service cluster and create a container for running Service Fabric.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+56. DRAG DROP
+
+You need to add JSON code to the bindings file to ensure that comments are screened.
+
+How should you complete the JSON code segment? To answer, drag the appropriate JSON segments to the correct locations. Each JSON segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+NOTE: Each correct selection is worth one point.
+
+
+
+
+57. You need to create the index for comment search.
+
+Which set of tokenizers should you enable?
+
+  A. classicpath_hierarchy_v2microsoft_language_steming_tokenizer
+  B. classicnGrammicrosoft_language_tokenizer
+  C. uax_url_emailpath_hierarchy_v2microsoft_language_tokenizer
+  D. uax_url_emailkeyword_v2nGram
+58. Topic 8, LitWare, Inc
+
+Background
+
+You are a developer for LitWare, Inc., a game development company. You are developing a backend service for an online social gaming platform named GamerData. The game is built around point generators, which are associated with physical landmarks. Players claim point generators which give them a set amount of points per day.
+
+Business Requirements
+
+Mobile App
+
+The game itself runs on various mobile devices and is developed by TailSpin Toys, a company that specializes in mobile game development. The mobile app will periodically make calls to the GamerData service to find the five closest point generators that are located less than the specified distance from the player’s current location. If no point generators are found, the search distance increases until one is found.
+
+The mobile app shows all the point generators owned by each player. The mobile app allows for each player to search for claimed point generators by player name. This search does not require exact spelling of names. The details for each claimed generator is shown in the app.
+
+When a player claims a point generator, they should receive an email notification. An Azure Function named EmailPlayer has been developed to email players with details about recently claimed point generators.
+
+Sponsors
+
+The platform allows business to sponsor point generators within a business location.
+
+Reports
+
+A report named Daily Sponsor Report must be generated each day at midnight. The report must contain a section for each sponsor. Each sponsor section must contain two subsections.
+
+The first subsection of the report contains the names of the point generators for that sponsor, ordered by the last time the point generator was claimed. The second subsection contains the current owners for each of the point generators for the sponsor. Generation of reports must not impact the GamerData service.
+
+Technical Requirements
+
+GamerData Service
+
+All data for the GamerData service is stored in an Azure DocumentDB instance named GamerData. Business and players interact with the service by using a REST API.
+
+The REST API must:
+
+・ Produce valid Swagger API specifications for non-obsolete actions.
+
+・ Be optimized for loading specific point generators.
+
+・ Follow REST best practices.
+
+・ Include appropriate terms of service.
+
+Costs for all Azure services must be minimized.
+
+Build and Deployment
+
+The GamerData service will be deployed to Azure in a private VNet.
+
+Security
+
+Sponsors have accounts in an Azure Active Directory (Azure AD) with business-to-consumer (B2C) enabled named litwaregamerdata.onmicrosoft.com managed by Litware, Inc. for both GamerData and LitWare, Inc. services.
+
+Only Litware, Inc. developers and automated testing tools should be able to directly access the GamerData service. All other use of the service must be through Azure API Management. A description of the security practices used during development, available on Microsoft SharePoint, must be available to users of the API under the terms of service.
+
+Reporting
+
+Azure Search will be used as the source for running reports. The properties of indexes in Azure Search must match the names of the properties in DocumentDB.
+
+Performance
+
+The Azure DocumentDB must not be used for reporting purposes. All services must perform queries in the data store when possible.
+
+Application Structure
+
+Startup.cs
+
+Relevant portions of the app files are shown below. (Line numbers in the code segments are included for reference only and include a two-character prefix that denotes the specific file to which they belong.)
+
+
+
+PointController.cs
+
+Relevant portions of the app files are shown below. (Line numbers in the code segments are included for reference only and include a two-character prefix that denotes the specific file to which they belong.)
+
+
+
+PointGenerator.cs
+
+Relevant portions of the app files are shown below. (Line numbers in the code segments are included for reference only and include a two-character prefix that denotes the specific file to which they belong.)
+
+
+
+You need to decrease the amount of time it takes to query point generators by configuring API management caching.
+
+In the Azure portal, which value should you use for the Vary by Query string parameters setting?
+
+  A. name
+  B. longitude;latitude;minDistance
+  C. longitude;latitude;dateLastClaimed
+  D. Id
+59. HOTSPOT
+
+You need to build a Swagger specification for creating the GamerData managed API.
+
+What should you do? To answer, select the appropriate options in the answer area.
+
+
+
+
+60. You need to trigger the EmailPlayer Azure Function when a point generator is claimed.
+
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. Insert code after line PC35 to create a Queue trigger and send a queue message.
+  B. Create a trigger based on the primary data store.
+  C. Create a trigger based on the reporting data store.
+  D. Insert code after line PC14 to create a Service Bus trigger and send a message.
+61. You need to write an Azure Search Query to return data for the first subsection of the Daily Sponsor Report.
+
+Which query string should you use?
+
+  A. facets=currentOwner&sort=dateLastClaimed
+  B. $filter=sponsor&sort=dateLastClaimed
+  C. search=currentOwner&sort=dateLastClaimed
+  D. group=sponsor&sort=dateLastClaimed
+  E. facets=sponsor&sort=dateLastClaimed
+62. DRAG DROP
+
+You need to ensure that sponsors can interact with the GamerData service by using the same credentials as they use for other LitWare, Inc. services.
+
+Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+63. You need to add a routing constraint.
+
+Which code segment should you add at line PC29?
+
+  A. [HttpDelete]
+  B. [HttpPost]
+  C. [HttpOptions]
+  D. [HttpsHead]
+64. HOTSPOT
+
+You need to write a method to return the email address for a given sponsor.
+
+What should you do? To answer, drag the appropriate code segment to the correct location. Each code segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+65. HOTSPOT
+
+You need to create the Azure Search index.
+
+How should you configure the Azure Search index? To answer, select the appropriate options in the answer area.
+
+NOTE: Each correct selection is worth one point.
+
+
+
+
+66. Topic 9, Fourth Coffee
+
+Background
+
+You are a developer working for Fourth Coffee, a company that sells coffee and coffee accessories through an Azure-based website and retail locations. Features of the website include the ability to write product reviews, comment on reviews and find whether a particular product is available at a specific retail location.
+
+Fourth Coffee licenses a product from Contoso, Ltd, that provides an Azure-based website for users in Japan. The website includes reviews and comments. All comments and product reviews are shared between Fourth Coffee’s website and the Japanese website.
+
+Business Requirements
+
+Product Reviews
+
+User-submitted product reviews are provided by Contoso and are stored in the Japanese language in an HTML file format. When a review is submitted, you must remove specific keywords from the review and translate the review to the English language before you load the review onto the Fourth Coffee website. Translation processing and migration must occur with a minimum delay.
+
+Product reviews can be loaded by third party websites, but only after they are processed and reviewed by Fourth Coffee employees. Reviews can be loaded up to one year after they are made public on the Fourth Coffee website.
+
+Comments
+
+Users can post comments about product reviews. After a comment is posted, all other users who comment on that product receive a notification on their Android or Windows Phone device.
+
+Technical Requirements
+
+Product Reviews
+
+The product reviews from Contoso are stored as HTML files in BLOB storage with the format “/reviews/<guid>html”.
+
+Fourth Coffee stores reviews in BLOB storage, with the format “/users/reviews/<guid>.md” where <guid> matches the file name of the review. After a Fourth Coffee employee approves the review, a metadata property named Reviewed with the value true is set on the BLOB.
+
+Some product reviews contain language-specific terms that require additional processing. The additional processing is done by a python script named cleanup.py. The script relies on a data file names term.data that contains terms and their replacement values. All running instances of the script must use the same instance of the data file.
+
+Security
+
+To simplify the security configuration, Contoso and Fourth Coffee agree to configure the website and services to allow for communication between the services without the traffic being visible on the public Internet.
+
+To prevent third parties from harvesting review data, whenever the system returns public reviews, it records the IP address of the request and increments a count of the times that data is retrieved from a particular IP address. If an IP address makes more than 10 requests a minute, the client must be redirected to a static page named ratelimit.html.
+
+Azure
+
+The Fourth Coffee website and related services that run on Azure are located in the US West region and are on a single virtual network named Main with the address 10.1.0.0/16.
+
+The Contoso website and related services that run on Azure are located in the Japan West region and are on a single virtual network named CT with the address 10.2.0.0/24.
+
+Comments
+
+Product review comments must be processed, at most, one time. When a comment is posted, it must be associated with the identity of the user who posted the comment. Product review comments are indexed by a web service that accepts the body of the comment in an HTTP POST. When comments are ported, they must be indexed for search within 15 minutes. Each comment must be indexed exactly once. All mobile device notifications are sent by using the Azure Notification Hub service.
+
+Application Structure
+
+CommentIndexer.cs
+
+Relevant portions of the CommentIndexer.cs file are shown below. Line numbers are included for reference only and include a two-character prefix that denotes the specific file to which the code belongs.
+
+
+
+ReviewController.cs
+
+Relevant portions of the ReviewController.cs file are shown below. Line numbers are included for reference only and include a two-character prefix that denotes the specific file to which the code belongs.
+
+
+
+TranslateJob.cs
+
+Relevant portions of the TranslateJob.cs file are shown below. Line numbers are included for reference only and include a two-character prefix that denotes the specific file to which the code belongs.
+
+
+
+AccessRateFilter.cs
+
+Relevant portions of the AccessRateFilter.cs file are shown below. Line numbers are included for reference only and include a two-character prefix that denotes the specific file to which the code belongs.
+
+
+
+HOTSPOT
+
+You need to add code after line RC06 to complete the implementation of the AddComment method.
+
+How should you complete the relevant code segment? To answer, select the appropriate code segment from each list in the answer area.
+
+
+
+
+67. You need to create a web job that performs post processing for reviews.
+
+What should you do?
+
+  A. Rename the post-processing file to action.py, and add a file named settings.job that includes the following content:{ “is_in_place”: false)
+  B. Rename the post-processing file to run.exe, and add a file named settings.job that includes the following content:{ “is_in_place”: false)
+  C. Rename the post-processing file to run.py, and add a file named settings.job that includes the following content:{ “is_in_place”: true)
+  D. Rename the post-processing file to action.exe, and add a file named settings.job that includes the following content:{ “is_in_place”: true)
+68. You need to implement the OnActionExecuting method of the AccessRateFilter class.
+
+How should you complete the relevant code segment? To answer, select the appropriate code segment from each list in the answer area.
+
+NOTE: Each correct selection is worth one point.
+
+
+
+
+69. DRAG DROP
+
+You need to implement the translation web job.
+
+How should you complete the relevant code? To answer, drag the appropriate code segment to the correct location. Each code segment may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+NOTE: Each correct selection is worth one point.
+
+
+
+
+70. Topic 10, Contoso Pharmaceutical
+
+Background
+
+Contoso Pharmaceuticals has an on premises solution for patients in hospice care. The solution consists of a Xamarin mobile application and a Microsoft SQL Server database. Health care providers use the solution to monitor and manage patient drug dosage and treatments. The solution uses third-party software to calculate drug prices and dosages. The third-party software has several different modules that run on various server systems.
+
+Contoso Pharmaceuticals would like to migrate the solution to the cloud and leverage several features of Azure. The company would like to use Platform as a Service (PaaS) where possible.
+
+You are evaluating the use of Azure Service Fabric as well as Azure App Service API Apps to host several of the software’s functionality as REST API services.
+
+You develop a drug pricing endpoint as an Azure App Service API app. The drug pricing endpoint requires API discovery that uses the Swagger RESTful API Documentation Specification (also known as the OpenAPI specification). Developers would like to generate Operation identifiers for overloads of their controller methods. In addition, developers are finding it difficult to secure the API endpoints by using authentication and authorization to restrict access to certain resources within the app without writing extra, custom code.
+
+You develop a drug dosage endpoint as a Service Fabric. OWIN hosted. HTTPS endpoint Developers are having difficulty writing and maintaining code to wrap client-side communication libraries in a retry loop for situations when the endpoints are down.
+
+DevOps have extensive experience with PowerShell and would like to maintain Azure resources by using Azure PowerShell.
+
+Business Requirements
+
+Patients
+
+Patient data must be stored securely. Data security must meet the Health Insurance Portability and Accountable Act of 1996 (HIPPA) standards in the United States and must meet the ISO/ICE 27002 data security standards in the rest of the world.
+
+Drug Pricing and Dosage Software
+
+The third party software was a very large investment for the company and contains several different modules that run on various server systems. The solution must be moved to Azure as the on-premises data center is costing the company too much in hardware renewal fees, not being properly backed up for a disaster recovery situation, and not being securely maintained to organizational security and compliance requirements.
+
+Drug Pricing and Dosage Software Platform-as-a-Service (PaaS)
+
+The company is looking to migrate to a PaaS solution to include implementation of the various software feature. The business would like to see a reduction in costs while increasing scalability, reliability, and resiliency. The company would like to ensure a seamless transition to the new solution while maintaining all features of the current drug pricing and dosage software.
+
+Mobile
+
+Several health care providers have connectivity issues with their mobile devices. The patient information and drug dosage is vital information that must be captured at each patient visit. The business would like the information to be delivered to a central location to be securely stored and used for reporting purposes.
+
+Technical Requirements:
+
+The software requires several virtual machines (VMs) due to the software’s use of the operating system and code operation. The software cannot run on an Azure PaaS service due to this restriction. The organization require, the VMs to be secured while active and .it rest using industry standard encryption technology to address organizational security arid compliance requirements. You plan to use Azure Key Vault to control the VM boot using keys and policies to comply with audit requirements. All VMs will be created by using the Azure Resource Manager
+
+The software consists of several VMs that run drift-ting operating systems and handle differing workloads. The VMs are defined as follows:
+
+– DrugPricingVM C The Linux VM runs Ubuntu Server and requires a Server Message Block (SMB) interface to access files from the VM. The VM must allow the use of file system APIs. The VM mint also access on premises resource’s while hosted in Azure.
+
+– DrugDosageVM – The Linux VM runs Ubuntu Server and uses REST APIs to store very large amounts of unstructured data for random access and streaming used to process drug dosages.
+
+– DrugProcessingVM – The Windows VM runs Windows Server and includes a Windows Communication foundation (WCF) service to process drug pricing and dosage requests. The VM requires a storage solution that guarantees first-in-first-out (FIFO) ordered delivery to ensure processing order of the requests is maintained. Standard processing requests are less than 256 kilobyte (KB) and include automatic duplicate detection.
+
+– DrugDataVM – The Windows VM runs Windows Server and SQL Server to store the patient treatments dosage information, as well as finalized costing information for the treatments.
+
+All VMs must be deployed using automated, repeatable processes that can be audited and validated. All VMs should be initially created, configured and deployed as one logical unit within a single resource group. In addition, all VMs should include monitoring and diagnostics to be enabled by using the Azure Diagnostics extension. All diagnostics and monitoring of VMs should be captured and stored by using a storage account.
+
+Architecture in evaluating the use of Azure service Fabric as well as Azure App Service API Apps to host several of the software’s functionality as REST API services.
+
+A drug pricing endpoint has been developed and implemented as an Azure App Service API app. The drug pricing endpoint requires AW discovery using the Swagger RESTful API Documentation Specification (also known as the OpenAPI specification). Developers would like to generate operation identifiers for overloads of their controller methods. In addition, developers are finding it difficult to secure the AW endpoints by using authentication and authorization to restrict access to certain resources, within the app without writing custom code. The API endpoint should be secured to only allow communication between each of the endpoints and disallow access from external communications.
+
+A drug dosage endpoint has been developed and implemented as a Service Fabric, OWIN hosted, HTTPS endpoint. Developers are having difficulty willing and maintaining code to wrap client-side communication libraries in a retry loop for situations when the endpoints are down.
+
+Network Communications
+
+All VMs require inbound traffic communications on port 50001 for both UDP and TCP communications. All VMs must be configured to run within the same subnet.
+
+Mobile
+
+The connectivity for mobile devices must support offline mode to allow users to continue modifying and create data when the device is offline. When the app is back online, it must synchronize local changes with a central repository stored in Azure.
+
+The mobile must cache server data locally on each device. The solution must synchronize data across multiple devices while detecting conflicts when the same record is modified by two or more devices. The synchronization must be incremental to reduce network traffic.
+
+Development
+
+Developers must use Microsoft Visual Studio on their desktops and store all code in a source repository hosted by using Visual Studio Team Services.
+
+You need to enable monitoring and diagnostic logging for the VMs.
+
+Solution: Run the command-line interface (CLI) command azure insights diagnostic set and include the resource identifier for the storage account and VM.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+71. You need to enable monitoring and diagnostic logging for the VMs.
+
+Solution: Run the Azure PowerShell command Set-AzureRmDiagnosticSetting and include the resource identifier for the storage account and VM.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+72. You need to enable monitoring and diagnostic logging for the VMs.
+
+Solution:Run the Azure PowerShell command Get-AzureRmVMDiagnosticsExtension and include the VM name and resource group name as parameters.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+73. DRAG DROP
+
+You need to access the diagnostic data for the drug pricing and dosage software VMs.
+
+Which REST API should you use for each data source?
+
+
+
+
+74. You need to update the Swagger API metadata to support all drug pricing and dosage software API methods.
+
+What are two possible ways to achieve the goal?
+
+  A. Update the Network Security Group security rules.
+  B. Update all methods with XML documentation comments and update the Swashbukte configuration to use the XML documentation.
+  C. Update all controller methods by giving the methods unique names.
+  D. Create a custom IOperatunel filter and cause swashbucke to use the implementation
+  E. Add the SaggerResponse attribute to the Web API action method.
+75. You need to secure all patient data stored in persistent storage.
+
+What should you do?
+
+  A. Enable Transparent Data Encryption (IDC) for all database instances.
+  B. Use Azure Disk Encryption and a Key Fncryptton Key (KEK) to enable and deploy Azure disk encryption for Azure VMs.
+  C. Use the Azure Security Center to define policies for the Azure subscription and resource groups to include daily scanning of all VMs.
+  D. Use the Azure Storage Client Library and the Azure Key Vault to enable client-side encryption by using a content encryption key (CEK).
+76. You need to create, configure and deploy all VMs for the drug pricing and dosage software.
+
+What should you do?
+
+  A. Deploy the solution by using Visual Studio Team Service Release Management.
+  B. Use the Azure Command Line Interface (CLI) to run the azure provider register command for each CM resource.
+  C. Provision each VM by using the Azure portal.
+  D. Install and configure a VM agent. Use Azure PowerShell to set the value of the ProvisionVMAgent Property to True.
+77. DRAG DROP
+
+You need to ensure that the drug dosage endpoint is always resolved and accessible.
+
+Which three actions should you perform in sequence?
+
+
+
+
+78. Topic 11, Contoso, Ltd (B)
+
+Background
+
+Contoso, Ltd designs and manufactures medical vaccines. The company has sales and manufacturing facilities in locations all over the world. The company must permanently retain all data from clinical testing of vaccines. Contoso is subject to penalties and lawsuits if any data is lost.
+
+You maintain an application that allow, medical professionals to manage data about patients, vaccine results, and possible side effects of the vaccines. You host the application in Microsoft Azure and manage the application by using the Azure portal.
+
+Current Environment
+
+Application:
+
+You have two on premises applications that conned lo Azure resources. The first application is named Contosol. Contoso uses Windows Identity foundation (WIF) and includes a secured area of the application that is used tor Single sign on with credentials from Azure Active Directory (AD).
+
+The second application is an auditing application named ClinicalSearch. It allows you to search for clinical test results. The application resides on an Azure Virtual Machine (VM) and must meet Azure Service Level Agreement (SLAs) for availability Auditors will be given access to the application in 24 hour interval.
+
+You have a data collection and distribution service named DataCollect. The service runs Node.js in an Azure cloud service. The service must use a minimum of 2048-bit encryption.
+
+Infrastructure:
+
+You provision the following objects:
+
+• Premium storage
+
+• TwoSQL Azure databases named CONTOSO-SQL1 and CONTOSO-SQL2. CONTOSO-SQL1 will store Current product data and will be scaled up to optimize performance during peak hours. CONTOSO-SQL2 will store archived product data.
+
+• Table Storage
+
+Deployment
+
+You deploy resources as a resource group by using Azure Resource Manager (ARM). You use templates to deploy resources to different environments. The cloud service is deployed using standard methods. You provide medical professionals and other clients access to the storage resources.
+
+Problem Statements
+
+Users are reporting that during peak hours, it takes a long time to save documents to the environment.
+
+Rrsearchers report that the DataCollect service takes a long time to respond when data is being sent to the service.
+
+Monitoring
+
+You enable minimal monitoring metrics for application. You enable boot diagnostics for all VMs
+
+HOTSPOT
+
+You need to configure monitoring.
+
+For each event, which properly should you use?
+
+
+
+
+79. HOTSPOT
+
+You need to configure the solutions.
+
+For each solution, which protocol should you use?
+
+
+
+
+80. You need to save the diagnostics information.
+
+What should you use?
+
+  A. a Remote Desktop connection to access the VM and Save the log files.
+  B. a custom script to store the diagnostics in the storage account.
+  C. a Standard storage account for the diagnostics
+  D. the Check Health feature
+81. Topic 12, Trey Research Inc
+
+Background
+
+Trey Research Inc. is a software as a service (SaaS) company that provides solutions to the legal industry including a mobile app named Finder. The company supports users globally.
+
+Case Files
+
+Case files are documents about legal proceedings, such as, trial transcripts, legal research, and summaries of trail results. Case files are used to capture trial information for future use.
+
+Before starting a trial, a new case file is created. Researchers link other potentially relevant case files to the new case file.
+
+During a trial, users create transcripts and notes related to the trial. Users may create documents on a variety of platform including Linux. Mac, OS, and Window. The files may be created n a variety of formats including Microsoft Word documents, images, and text files.
+
+All documents are uploaded to a file share. Once document are uploaded, the system imports the documents as case files.
+
+When a trial is concluded, the case file for that trial is marked as finished and made available as research for future trials. During this process, all licensed case files are removed from case file association.
+
+Finder
+
+Lawyer use Finder to search for and view information and documents that relate to a case. The interface include an auto complete text box where users can enter search terms. Searches must be performed using combination of characters in the search input.
+
+Transcripts and Notes
+
+The transcript and notes created during a trial are uploaded from machines that do not have consistent Internet connections. Documents may be uploaded multiple times with different file names. This action must not result in multiple case files being generated. The processing of uploaded documents must be started by an Azure function.
+
+Security:
+
+When a Service Fabric Actor is activated the information about the activation must be stored in Cosmos DB.
+
+Users of the system will authenticate using their organization’s Active Directory. When a user is removed from an organization’s Active Directory, their access to the IntelligentAssist product must be revoked as soon as possible.
+
+Application Structure
+
+Casefile.cs
+
+Relevant portions of the app files are shown below. Line numbers, in the code segments are included for reference only and include a two character prefix that denotes, the specific file to which they belong.
+
+
+
+Mainpage.cs
+
+Relevant portions of the app files are shown below. Line numbers, in the code segments are included for reference only and include a two character prefix that denotes, the specific file to which they belong.
+
+
+
+CaseFileController.cs
+
+Relevant portions of the app files are shown below. Line numbers, in the code segments are included for reference only and include a two character prefix that denotes, the specific file to which they belong.
+
+
+
+ActorProgram.cs
+
+Relevant portions of the app files are shown below. Line numbers, in the code segments are included for reference only and include a two character prefix that denotes, the specific file to which they belong.
+
+
+
+CaseFileActor.cs
+
+Relevant portions of the app files are shown below. Line numbers, in the code segments are included for reference only and include a two character prefix that denotes, the specific file to which they belong.
+
+
+
+
+
+
+
+CaseFileSwagger.Json
+
+Relevant portions of the app files are shown below. Line numbers, in the code segments are included for reference only and include a two character prefix that denotes, the specific file to which they belong.
+
+
+
+
+
+You need to ensure that users can upload transcripts and notes.
+
+Solution: You use Azure Resource Manager (ARM) to provision a storage account, and then use ARM to provision an Azure Cosmos DB database.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+82. You need to ensure that users can upload transcripts and notes.
+
+Solution Use Azure Resource Manager (ARM) to provision a storage account and then use Azure PowerShell to provision an Azure File share.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+83. DRAG DROP
+
+You need to add code at line CA17 to ensure that third party licenses are handled correctly when a case is closed.
+
+How should you complete the code segment?
+
+
+
+
+84. HOTSPOT
+
+You need to add code at line MP11 to ensure that the solution meets third-party license reuirement.
+
+How should you complete the code?
+
+
+
+
+85. DRAG DROP
+
+You need to ensure that operations are billed correctly.
+
+Which code should you insert at line AP09?
+
+
+
+
+86. You need to ensure that users can upload transcripts and notes.
+
+Solution: You create a virtual machine (VM) image that contains a Server Message Block (SMB) share, and then use Azure Resource Manager (ARM) to provision a VM based on the image
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+87. You need to ensure that users can upload transcripts and notes.
+
+Solution: You use Azure Resource Manager (ARM) to provision a storage account, and then use the Azure portal to create an Azure file share.
+
+Does the solution meet the goal?
+
+  A. Yes
+  B. No
+88. Topic 13, Contoso, Ltd (C)
+
+Background
+
+Contoso, Ltd. develops, manufactures, and sells paint, wallpaper, and other home improvement items. The company currently uses a third-party service that sells Contoso’s products through their e-commerce solution. Contoso plans to take over the entire process. Customers complete the purchase process and provide billing information to the web application. An executable named SalesProcess.exe processes all of the information received. An on-premises server that runs Windows Server 2012 hosts the executable.
+
+Build and Deploy
+
+You create an Azure Web App using the Azure Management Portal, and configure the Web App to use the Basic App Service plan. The Web App will support the full process of browsing inventory, placing orders, billing, and order fulfillment. Contoso registers the custom domain www.contoso.com for use by the application.
+
+For future production builds, Contoso plans to use Microsoft Visual Studio Team Services and configure Azure continuous deployment. Contoso currently uses Team Foundation Server 2013 for source control.
+
+Performance and Monitoring
+
+Contoso runs performance tests and identifies some concerns. During periods of heavy load, the cache is performing poorly and messages are not processed.
+
+You enable diagnostics for the Web App, but diagnostics data is not logged to storage. You confirm that sufficient storage and permissions are present. You have a device named PC1 that runs Windows 10. PC1 is a dedicated device for debugging the cloud service.
+
+Business requirements
+
+You identify the following business requirements:
+
+・ The web application must provide a secure shopping experience for the customer.
+
+・ Quality Assurance testers must validate all new versions of the web application before they are published to production.
+
+・ You must be able to revert to previous versions after deployment if necessary.
+
+・ The solution must eventually reside completely in the cloud.
+
+・ You must enable remote debugging for the web application
+
+You must test the solution with a limited number of users for the first six-month period after you initially deploy the web application. During this period, you must minimize costs associated with the Azure subscription.
+
+Technical requirements
+
+You identify the following technical requirements:
+
+・ Network traffic must be monitored on all ports that the web application uses.
+
+・ The web application must remain available to users during deployment of new features.
+
+・ The custom domain must be secured by using SSL.
+
+・ You must use an X.509 certificate.
+
+・ The web application must auto-scale to a larger instance size when CPU load reaches 50 percent
+
+Web App details
+
+You configure the following properties for the Web App:
+
+・ Resource Group: contoso
+
+・ Web App Name: contosoapp
+
+・ Slot Name: contoso1
+
+・ Deployment package location: C:
+
+・ Deployment package name: contosoweb.zip
+
+HOTSPOT
+
+You need to ensure that the Web App scales correctly.
+
+For each option, which value should you use? To answer, select the appropriate value from each list in the answer area.
+
+NOTE: Each correct selection is worth one point.
+
+
+
+
+89. You need to use the least expensive App Service plan tier that will allow you to deploy and roll back the Contoso Web App.
+
+Which App Service plan tier should you use?
+
+  A. Shared
+  B. Standard
+  C. Premium
+  D. Free
+  E. Basic
+90. HOTSPOT
+
+You configure the following properties for the Web App:
+
+You need to revert to the last functioning version.
+
+How should you configure the relevant Azure PowerShell command? To answer, select the appropriate Azure PowerShell segments from each list in the answer area.
+
+NOTE: Each correct selection is worth one point.
+
+
+
+
+
+ 
+
+ 
+
+Updated Microsoft Azure 70-533 Exam Dumps Online Tags:70-532, 70-532 dumps, 70-532 dumps questions, 70-532 exam dumps, 70-532 exam questions, 70-532 free questions, 70-532 MCSA exam, 70-532 questions, Microsoft Azure Exam
+Related Posts
+Test Free Programming in C# 70-483 Exam Dumps70-776 Perform Big Data Engineering on Microsoft Cloud ServicesTest 70-779 Analyzing and Visualizing Data with Microsoft Excel Dumps Online
+About The Author
+
+Dumps
+From our dumpsbase platform you could search what exams you need then test or practice online by yourself. Download the PDF file if you need directly. Any other questions you can mail support@dumpsbase.com
