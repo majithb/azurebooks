@@ -1,0 +1,169 @@
+1. You manage a cloud service that hosts a customer-facing application. The application allows users to upload images and create collages. The cloud service is running in two medium instances and utilizes Azure Queue storage for image processing.
+The storage account is configured to be locally redundant. The sales department plans to send a newsletter to potential clients. As a result, you expect a significant increase in global traffic.
+You need to recommend a solution that meets the following requirements:
+* Configure the cloud service to ensure the application is responsive to the traffic increase.
+* Minimize hosting and administration costs.
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution
+
+  A. Configure the cloud service to run in two Large instances.
+  B. Configure the cloud service to auto-scale to three instances when processor utilization is above 80%.
+  C. Configure the storage account to be geo-redundant
+  D. Deploy a new cloud service in a separate data center.Use Azure Traffic Manager to load balance traffic between the cloud services.
+  E. Configure the cloud service to auto-scale when the queue exceeds 1000 entries per machine.
+2. You manage an application running on Azure Web Sites Standard tier. The application uses a substantial amount of large image files and is used by people around the world. Users from Europe report that the load time of the site is slow.
+You need to implement a solution by using Azure services. Which two actions will achieve the goal? Each correct answer presents a complete solution.
+
+  A. Configure Azure blob storage with a custom domain.
+  B. Configure Azure CDN to cache all responses from the application web endpoint.
+  C. Configure Azure Web Site auto-scaling to increase instances at high load.
+  D. Configure Azure CDN to cache site images and content stored in Azure blob storage.
+3. You plan to deploy an application as a cloud service. The application uses a virtual network to extend your on-premises network into Azure. You need to configure a site-to-site VPN for cross-premises network connections.
+Which two objects should you configure? Each correct answer presents part of the solution.
+
+  A. Dynamic routing gateway
+  B. VPN gateway
+  C. External-facing IPv6 address
+  D. External-facing IPv4 address
+4. You manage an Azure subscription with virtual machines (VMs) that are running in Standard mode. You need to reduce the storage costs associated with the VMs. What should you do?
+
+  A. Locate and remove orphaned disks
+  B. Add the VMs to an affinity group.
+  C. Change VMs to the Basic tier.
+  D. Delete the VHD container
+5. You manage a web application published to Azure Cloud Services. Your service level agreement (SLA) requires that you are notified in the event of poor performance from customer locations in the US, Asia, and Europe.
+You need to configure the Azure Management Portal to notify you when the SLA performance targets are not met. What should you do?
+
+  A. Create an alert rule to monitor web endpoints
+  B. Create a Notification Hub alert with response time metrics.
+  C. Add an endpoint monitor and alert rule to the Notification Hub.
+  D. Configure the performance counter on the cloud service.
+6. Your company has recently signed up for Azure. You plan to register a Data Protection Manager (DPM) server with the Azure Backup service. You need to recommend a method for registering the DPM server with the Azure Backup vault.
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. Import a self-signed certificate created using the makecert tool.
+  B. Import a self-signed certificate created using the createcert tool.
+  C. Import an
+  D. 509 v3 certificate with valid clientauthentication EK
+  E. Import an
+  F. 509 v3 certificate with valid serverauthentication EK
+7. Your company plans to migrate from On-Premises Exchange to Exchange Online in Office 365.
+You plan to integrate your existing Active Directory Domain Services (AD DS) infrastructure with Azure AD.
+You need to ensure that users can log in by using their existing AD DS accounts and passwords. You need to achieve this goal by using minimal additional systems.
+Which two actions should you perform? Each answer presents part of the solution.
+
+  A. Configure Password Sync.
+  B. Set up a DirSync Server
+  C. Set up an Active Directory Federation Services Server
+  D. Set up an Active Directory Federation Services Proxy Server
+8. You develop a set of Power Shell scripts that will run when you deploy new virtual machines (VMs). You need to ensure that the scripts are executed on new VMs.
+You want to achieve this goal by using the least amount of administrative effort. What should you do?
+
+  A. Create a new GPO to execute the scripts as a logon script.
+  B. Create a SetupComplete.cmd batch file to call the scripts after the VM starts.
+  C. Create a new virtual hard disk (VHD) that contains the scripts.
+  D. Load the scripts to a common file share accessible by the VMs.
+  E. Set the VMs to execute a custom script extension.
+9. You administer an Azure Web Site named contosoweb that is used to sell various products. Contosoweb experiences heavy traffic during weekends.
+You need to analyze the response time of the product catalog page during peak times, from different locations. What should you do?
+
+  A. Configure endpoint monitoring
+  B. Add the Requests metric
+  C. Turn on Failed Request Tracing
+  D. Turn on Detailed Error Messages
+10. Your company has two physical locations configured in a geo-clustered environment that includes:
+* System Center Virtual Machine Manager 2012 R2
+* System Center Data Protection Manager 2012 R2
+* SQL Server 2012
+* Windows Server 2012 R2 Hyper-V
+* Over 100 virtual machines (VMs) in each physical location
+Your company has recently signed up for Azure. You plan to leverage your current network environment to provide a backup solution for your VMs. You need to recommend a solution that ensures all VMs are redundant and deployable between locations.
+You also want the solution to minimize downtime in the event of an outage at either physical location. Which solution should you recommend?
+
+  A. Configure a backup vault in Azure and use Data Protection Manager to back up the Windows Servers.
+  B. Use Data Protection Manager and back up the VMs in each location
+  C. Use Azure site recovery in an on-premises to Azure protection configuration
+  D. Use Azure site recovery in an on-premises to on-premises protection configuration
+11. You administer a virtual machine (VM) that is deployed to Azure. You configure a rule to generate an alert when the average availability of a web service on your VM drops below 95 percent for 15 minutes. The development team schedules a one-hour maintenance period. You have the following requirements:
+* No alerts are created during the maintenance period.
+* Alerts can be restored when the maintenance is complete.
+You want to achieve this goal by using the least amount of administrative effort. What should you do from the Management Portal?
+
+  A. Select and disable the rule from the Dashboard page of the virtual machine.
+  B. Select and delete the rule from the Configure page of the virtual machine.
+  C. Select and disable the rule from the Monitor page of the virtual machine.
+  D. Select and disable the rule on the Configure page of the virtual machine.
+12. You manage a cloud service that utilizes an Azure Service Bus queue. You need to ensure that messages that are never consumed are retained. What should you do?
+
+  A. Check the MOVE TO THE DEAD-LETTER SUBQUEUE option for Expired Messages in the Azure Portal.
+  B. From the Azure Management Portal, create a new queue and name it Dead-Letter.
+  C. Execute the Set-AzureServiceBus PowerShell cmdlet.
+  D. Execute the New-AzureSchedulerStorageQueueJob PowerShell cmdlet.
+13. You manage a set of virtual machines (VMs) deployed to the cloud service named fabrikamVM. You configure auto scaling according to the following parameters:
+* With an instance range of two to six instances
+* To maintain CPU usage between 70 and 80 percent
+* To scale up one instance at a time
+* With a scale up wait time of 30 minutes
+* To scale down one instance at a time
+* With a scale down wait time of 30 minutes
+You discover the following usage pattern of a specific application:
+* The application peaks very quickly, and the peak lasts for several hours.
+* CPU usage stays above 90 percent for the first 1 to 1.5 hours after usage increases. After 1.5 hours, the CPU usage falls to about 75 percent until application usage begins to decline.
+You need to modify the auto scaling configuration to scale up faster when usage peaks. What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. Decrease the scale down wait time.
+  B. Decrease the scale up wait time.
+  C. Increase the number of scale up instances.
+  D. Increase the scale up wait time.
+  E. Increase the maximum number of instances
+14. You manage a cloud service that has a web role named fabWeb. You create a virtual network named fabVNet that has two subnets defined as Web and Apps. You need to be able to deploy fabWeb into the Web subnet. What should you do?
+
+  A. Modify the service definition (csdef) for the cloud service
+  B. Run the Set-AzureSubnet PowerShell cmdlet.
+  C. Run the Set-AzureVNetConfig PowerShell cmdlet.
+  D. Modify the network configuration file.
+  E. Modify the service configuration (cscfg) for the fabWeb web role.
+15. You administer an Azure Active Directory (Azure AD) tenant where Box is configured for:
+* Application Access
+* Password Single Sign-on
+An employee moves to an organizational unit that does not require access to Box through the Access Panel. You need to remove only Box from the list of applications only for this user. What should you do?
+
+  A. Delete the user from the Azure AD tenant
+  B. Delete the Box Application definition from the Azure AD tenant
+  C. From the Management Portal, remove the user’s assignment to the application.
+  D. Disable the user’s account in Windows AD
+16. You administer an Azure Storage account named contoso storage. The account has queue containers with logging enabled. You need to view all log files generated during the month of July 2014. Which URL should you use to access the list?
+
+  A. http://contosostorage.queue.core.windows.net/$logs?restype=container&comp=list&prefix=queue/2014/07
+  B. http://contosostorage.queue.core.windows.net/$files?restype=container&comp=list&prefix=queue/2014/07
+  C. http://contosostorage.blob.core.windows.net/$files?restype=container&comp=list&prefix=blob/2014/07
+  D. http://contosostorage.blob.core.windows.net/$logs?restype=container&comp=list&prefix=blob/2014/07
+17. You work for a company named Contoso, Ltd. The network contains an on premises Active Directory domain that has Active Directory Federation Services (AD FS). Contoso uses an internally developed claims App1. You implement directory synchronization with Azure Active Directory (Azure AD).
+You need to recommend which configuration should be performed to Single-Sign-On to App1 to authenticated by Azure AD. Which two configuration should you include in the recommendation?
+
+  A. Azure AD as claims provided trust
+  B. App1 as a claims provider
+  C. Azure AD as relying party trust
+  D. App1 as relying party trust
+18. You administer a cloud service. You plan to host two web applications named contosoweb and contosowebsupport. You need to ensure that you can host both applications and qualify for the Azure Service Level Agreement.
+You want to achieve this goal while minimizing costs. How should you host both applications?
+
+  A. in different web roles with two instances in each web role
+  B. in the same web role with two instances
+  C. in different web roles with one instance in each web role
+  D. in the same web role with one instance
+19. You deploy an application as a cloud service in Azure. The application consists of five instances of a web role. You need to move the web role instances to a different subnet. Which file should you update?
+
+  A. Service definition
+  B. Diagnostics configuration
+  C. Service configuration
+  D. Network configuration
+20. You have an Azure subscription named Subscription1. You create several Azure VMs in Subscription1. All of the VMs belong to the same virtual network.
+You have an on-premises Hyper-V server named Server1. Server1 hosts a virtual machine named VM1. You plan to replicate VM1 to Azure.
+You need to create additional objects in Subscription1 to support the planned deployment. Which three objects should you create? Each correct answer presents part of the solution.
+
+  A. An Azure Site Recovery vault
+  B. An endpoint
+  C. A protection group
+  D. A Hyper-V site
+  E. A storage account
+  F. A Traffic Manager
