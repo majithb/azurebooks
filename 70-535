@@ -1,0 +1,1066 @@
+. HOTSPOT
+
+You manage an Azure Service Bus for your company. You plan to enable access to the Azure Service Bus for an application named ContosoLOB.
+
+You need to create a new shared access policy for subscriptions and queues that has the following requirements:
+
+-Receives messages from a queue
+
+-Deadletters a message
+
+-Defers a message for later retrieval
+
+-Enumerates subscriptions
+
+-Gets subscription description
+
+In the table below, identify the permission you need to assign to ensure that ContosoLOB is able to accomplish the above requirements. Make only one selection in each column.
+
+
+
+
+2. Your network includes a legacy application named LegacyApp1. The application only runs in the Microsoft .NET 3.5 Framework on Windows Server 2008.
+
+You plan to deploy to Azure Cloud Services.
+
+You need to ensure that LegacyApp1 will run correctly in the new environment.
+
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. Upload a VHD with Windows Server 2008 installed.
+  B. Deploy LegacyApp1 to a cloud service instance configured with Guest OS Family 2.
+  C. Deploy LegacyApp1 to a cloud service instance configured with Guest OS Family 1.
+  D. Deploy LegacyApp1 to a cloud service instance configured with Guest OS Family 3.
+3. DRAG DROP
+
+You administer a cloud service named contosoapp that has a web role and worker role.
+
+Contosoapp requires you to perform an in-place upgrade to the service.
+
+You need to ensure that at least six worker role instances and eight web role instances are available when you apply upgrades to the service. You also need to ensure that updates are completed for all instances by using the least amount of time.
+
+Which value should you use with each configuration? To answer, drag the appropriate value to the correct configuration. Each value may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+4. You migrate a Windows Server .NET web application to Azure Cloud Services.
+
+You need enable trace logging for the application.
+
+Which two actions should you perform? Each correct answer presents part of the solution.
+
+  A. Update the service definition file.
+  B. Update the Azure diagnostics configuration.
+  C. Update the service configuration file.
+  D. Enable verbose monitoring.
+  E. Update the application web.config file.
+5. You manage a cloud service that is running in two small instances. The cloud service hosts a help desk application. The application utilizes a virtual network connection to synchronize data to the company’s internal accounting system.
+
+You need to reduce the amount of time required for data synchronization.
+
+What should you do?
+
+  A. Configure the servers as large instances and re-deploy.
+  B. Increase the instance count to three.
+  C. Deploy the application to Azure Web Sites.
+  D. Increase the processors allocated to the instances.
+6. You manage a cloud service that has a web application named WebRole1. WebRole1 writes error messages to the Windows Event Log.
+
+Users report receiving an error page with the following message: "Event 26 has occurred. Contact your system administrator."
+
+You need to access the WebRole1 event log.
+
+Which three actions should you perform? Each correct answer presents part of the solution.
+
+  A. Enable verbose monitoring.
+  B. Update the WebRole1 web.config file.
+  C. Update the cloud service definition file and the service configuration file.
+  D. Run the Set-AzureVMDiagnosticsExtensionPowerShell cmdlet.
+  E. Run the Enable-AzureWebsiteApplicationDiagnostic PowerShell cmdlet.
+  F. Create a storage account.
+7. DRAG DROP
+
+You manage an application hosted on cloud services. The development team creates a new version of the application. The updated application has been packaged and stored in an Azure Storage account.
+
+You have the following requirements:
+
+-Deploy the latest version of the application to production with the least amount of downtime.
+
+-Ensure that the updated application can be tested prior to deploying to the Production site.
+
+-Ensure that the original version of the application can be restored until the new version is verified.
+
+Which four steps should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+8. You manage a cloud service that utilizes data encryption.
+
+You need to ensure that the certificate used to encrypt data can be accessed by the cloud service application.
+
+What should you do?
+
+  A. Upload the certificate referenced in the application package.
+  B. Deploy the certificate as part of the application package.
+  C. Upload the certificate’s public key referenced in the application package.
+  D. Use RDP to install the certificate.
+9. You administer a Windows Server virtual machine (VM).
+
+You upload the VM to Azure.
+
+You need to ensure that you are able to deploy the BGInfo and VMAccess extensions.
+
+What should you do?
+
+  A. Select the Install the VM Agent checkbox while provisioning a VM based on your uploaded VH
+  B. Select the Enable the VM Extensions checkbox while provisioning a VM based on your uploaded VH
+  C. Install the VM Agent MSI and execute the following Power Shell commands:$vm = Get-AzureVM -serviceName $svc -Name $name$vm.V
+  D. ProvisionGuestAgent = $trueUpdate-AzureVM -Name Sname -VM $vm.VM -ServiceName $svc
+  E. Install the VM Agent MSI and execute the following Power Shell commands:$vm = Get-AzureVM -serviceName $svc -Name $nameSet-AzureVMBGInfoExtension -VM $vm.VMSet-AzureVM Access Extension -VM $vm.VMUpdate-AzureVM -Name Sname -VM $vm.VM -ServiceName $svc
+10. You manage a cloud service that supports features hosted by two instances of an Azure virtual machine (VM).
+
+You discover that occasional outages cause your service to fail.
+
+You need to minimize the impact of outages to your cloud service.
+
+Which two actions should you perform? Each correct answer presents part of the solution.
+
+  A. Deploy a third instance of the V
+  B. Configure Load Balancing on the VMs.
+  C. Redeploy the VMs to belong to an Affinity Group.
+  D. Configure the VMs to belong to an Availability Set.
+11. You administer an Azure subscription with an existing cloud service named contosocloudservice. Contosocloudservice contains a set of related virtual machines (VMs) named ContosoDC, ContosoSQL and ContosoWeb1.
+
+You want to provision a new VM within contosocloudservice.
+
+You need to use the latest gallery image to create a new Windows Server 2012 R2 VM that has a target IOPS of 500 for any provisioned disks.
+
+Which PowerShell command should you use?
+
+
+
+  A. Option A
+  B. Option B
+  C. Option C
+  D. Option D
+12. DRAG DROP
+
+DRAG DROP
+
+You administer an Azure Virtual Machine (VM) named server1. The VM is in a cloud service named ContosoService1.
+
+You discover that the VM is experiencing storage issues due to increased application logging on the server.
+
+You need to create a new 256-GB disk and attach it to the server.
+
+Which Power Shell cmdlets should you use? To answer, drag the appropriate cmdlet to the correct location in the Power Shell command. Each cmdlet may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+13. Your company has two cloud services named CS01 and CS02. You create a virtual machine (VM) in CS02 named Accounts.
+
+You need to ensure that users in CS01 can access the Accounts VM by using port 8080.
+
+What should you do?
+
+  A. Create a firewall rule.
+  B. Configure load balancing.
+  C. Configure port redirection.
+  D. Configure port forwarding.
+  E. Create an end point.
+14. You administer a solution deployed to a virtual machine (VM) in Azure. The VM hosts a web service that is used by several applications. You are located in the US West region and have a worldwide user base.
+
+Developers in Asia report that they experience significant delays when they execute the services.
+
+You need to verify application performance from different locations.
+
+Which type of monitoring should you configure?
+
+  A. Disk Read
+  B. Endpoint
+  C. Network Out
+  D. CPU
+  E. Average Response Time
+15. You are the administrator for three Azure subscriptions named Dev, Test, and Prod.
+
+Your Azure Power Shell profile is configured with the Dev subscription as the default.
+
+You need to create a new virtual machine in the Test subscription by using the least administrative effort.
+
+Which Power Shell command should you use?
+
+
+
+  A. Option A
+  B. Option B
+  C. Option C
+  D. Option D
+16. DRAG DROP
+
+DRAG DROP
+
+You manage an Azure virtual machine (VM) named AppVM. The application hosted on AppVM continuously writes small files to disk. Recently the usage of applications on AppVM has increased greatly.
+
+You need to improve disk performance on AppVM.
+
+Which Microsoft Azure Power Shell cmdlet should you use with each Power Shell command line? To answer, drag the appropriate Microsoft Azure Power Shell cmdlet to the correct location in the Power Shell code. Each Power Shell cmdlet may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+17. DRAG DROP
+
+DRAG DROP
+
+You administer a virtual machine (VM) that is deployed to Azure. The VM hosts a web service that is used by several applications.
+
+You need to ensure that the VM sends a notification in the event that the average response time for the web service exceeds a pre-defined response time for an hour or more.
+
+Which three steps should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+18. DRAG DROP
+
+DRAG DROP
+
+You administer an Azure Virtual Machine (VM) named CON-CL1. CON-CL1 is in a cloud service named ContosoService1.
+
+You discover unauthorized traffic to CON-CL1. You need to:
+
+-Create a rule to limit access to CON-CL1.
+
+-Ensure that the new rule has the highest precedence.
+
+Which Azure Power Shell cmdlets and values should you use? To answer, drag the appropriate cmdlet or value to the correct location in the Power Shell command. Each cmdlet or value may be used once, more than once, or not at all. You may need to drag the split bat between panes or scroll to view content.
+
+
+
+
+19. HOTSPOT
+
+Your company network has two branch offices. Some employees work remotely, including at public locations. You manage an Azure environment that includes several virtual networks.
+
+All users require access to the virtual networks.
+
+In the table below, identify which secure cross-premise connectivity option is needed for each type of user. Make only one selection in each column.
+
+
+
+
+20. HOTSPOT
+
+HOTSPOT
+
+You create a virtual network named fabVNet01.
+
+You design the virtual network to include two subnets, one named DNS-subnet and one named Apps-subnet, as shown in the exhibit. (Click the Exhibits button.)
+
+
+
+In the table below, identify the number of IP addresses that will be available for virtual machines (VMs) or cloud services in each subnet. Make only one selection in each column.
+
+
+
+
+21. You administer an Azure solution that uses a virtual network named FabVNet. FabVNet has a single subnet named Subnet-1.
+
+You discover a high volume of network traffic among four virtual machines (VMs) that are part of Subnet-1.
+
+You need to isolate the network traffic among the four VMs. You want to achieve this goal with the least amount of downtime and impact on users.
+
+What should you do?
+
+  A. Create a new subnet in the existing virtual network and move the four VMs to the new subnet.
+  B. Create a site-to-site virtual network and move the four VMs to your datacenter.
+  C. Create a new virtual network and move the VMs to the new network.
+  D. Create an availability set and associate the four VMs with that availability set.
+22. You administer an Azure virtual network named fabrikamVNet.
+
+You need to deploy a virtual machine (VM) and ensure that it is a member of the fabrikamVNet virtual network.
+
+Which two actions will achieve the goal? Each correct answer presents a complete solution.
+
+  A. Run the following Azure PowerShell cmdlet: New-AzureRmVM
+  B. Run the following Azure PowerShell cmdlet: New-AzureQuickVM
+  C. Run the following Azure PowerShell cmdlet:New-AzureAfhnityGroup.
+  D. Update fabrikamVNet’s existing Availability Set.
+23. You manage a large datacenter that has limited physical space.
+
+You plan to extend your datacenter to Azure.
+
+You need to create a connection that supports a multiprotocol label switching (MPLS) virtual private network.
+
+Which connection type should you use?
+
+  A. Site-to-site
+  B. VNet-VNet
+  C. ExpressRoute.
+  D. Site-to-peer
+24. You manage a cloud service named fabrikamReports that is deployed in an Azure data center.
+
+You deploy a virtual machine (VM) named fabrikamSQL into a virtual network named fabrikamVNet.
+
+FabrikamReports must communicate with fabrikamSQL.
+
+You need to add fabrikam Reports to fabrikamVNet.
+
+Which file should you modify?
+
+  A. the network configuration file for fabrikamVNet
+  B. the service definition file (.csdef) for fabrikamReports
+  C. the service definition file (.csdef) for fabrikamSQL
+  D. the service configuration file (.cscfg) for fabrikamReports
+  E. the service configuration file (.cscfg) fabrikamSQL
+25. You manage an application deployed to virtual machines (VMs) on an Azure virtual network named corpVnet1.
+
+You plan to hire several remote employees who will need access to the application on corpVnet1.
+
+You need to ensure that new employees can access corpVnet1. You want to achieve this goal by using the most cost effective solution.
+
+Which two actions should you perform? Each correct answer presents part of the solution.
+
+  A. Create a VPN subnet.
+  B. Enable point-to-point connectivity for corpVnet1.
+  C. Enable point-to-site connectivity for corpVnet1.
+  D. Create a gateway subnet.
+  E. Enable site-to-site connectivity for corpVnet1.
+  F. Convert corpVnet1 to a regional virtual network.
+26. DRAG DROP
+
+You have an Azure Virtual Network named fabVNet with three subnets named Subnet-1, Subnet-2 and Subnet-3. You have a virtual machine (VM) named fabVM running in the fabProd service.
+
+You need to modify fabVM to be deployed into Subnet-3. You want to achieve this goal by using the least amount of time and while causing the least amount of disruption to the existing deployment.
+
+What should you do? To answer, drag the appropriate Power Shell cmdlet to the correct location in the Power Shell command. Each cmdlet may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+27. DRAG DROP
+
+DRAG DROP
+
+You manage a solution deployed in two Azure subscriptions for testing and production. Both subscriptions have virtual networks named fabVNet.
+
+You plan to add two new virtual machines (VMs) in a new subnet.
+
+You have the following requirements:
+
+-Deploy the new VMs to the virtual network in the testing subscription.
+
+-Minimize any errors in defining the network changes.
+
+-Minimize the work that will be required when the change is made to the production virtual network.
+
+Which three steps should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+28. HOTSPOT
+
+HOTSPOT
+
+You manage an Azure Web Site named contosoweb.
+
+Some users report that they receive the following error when they access contosoweb:
+
+“http Status 500.0 – Internal Server Error.”
+
+You need to view detailed diagnostic information in XML format.
+
+Which option should you enable? To answer, select the appropriate option in the answer area.
+
+
+
+
+29. DRAG DROP
+
+DRAG DROP
+
+You manage an Azure Web Site named contososite.
+
+You download the subscription publishing credentials named Contoso-Enterprise.publishsettings.
+
+You need to use Azure Power Shell to achieve the following:
+
+-Connect to the Contoso-Enterprise subscription.
+
+-Create a new App Setting namedIsCustomwith a value of True.
+
+-Restart theWeb App.
+
+Which commands should you use? To answer, drag the appropriate Azure PowerShell command to the correct location in the solution. Each command may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+30. Your company has a subscription to Azure. You plan to deploy 10 websites.
+
+You have the following requirements:
+
+-Each website has at least 15 GB of storage.
+
+-All websites can useazurewebsite.net.
+
+You need to deploy the 10 websites while minimizing costs.
+
+Which web tier plan should you recommend?
+
+  A. Free
+  B. Small Business
+  C. Standard
+  D. Basic
+31. You administer an Azure Web Site named contoso. The development team has implemented changes to the website that need to be validated.
+
+You need to validate and deploy the changes with minimum downtime to users.
+
+What should you do first?
+
+  A. Create a new Linked Resource.
+  B. Configure Remote Debugging on contoso.
+  C. Create a new website named contosoStaging.
+  D. Create a deployment slot named contosoStaging.
+  E. Back up the contoso website to a deployment slot.
+32. You manage an Azure Web Site that is running in Shared mode.
+
+You discover that the website is experiencing increased average response time during periods of heavy user activity.
+
+You need to update the website configuration to address the performance issues as they occur.
+
+What should you do?
+
+  A. Set the website to Standard mode and configure automatic scaling based on CPU utilization.
+  B. Configure automatic seating during specific dates.
+  C. Modify the website instance size.
+  D. Configure automatic scaling based on memory utilization.
+  E. Set the website to Basic mode and configure automatic scaling based on CPU utilization.
+33. DRAG DROP
+
+You manage an Azure Web Site in Standard mode at the following address: contoso.azurewebsites.net.
+
+Your company has a new domain for the site that needs to be accessible by Secure Socket Layer (SSL) encryption.
+
+You need to be able to add a custom domain to the Azure Web Site and assign an SSL certificate.
+
+Which three steps should you perform next in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order. More than one order of answer choices may be correct. You will receive credit for any of the correct orders you select
+
+
+
+
+34. You manage an Azure Web Site named contosoweb. Logging is enabled for contosoweb.
+
+You need to view only errors from your log files in a continuous stream as they occur.
+
+Which Windows Power Shell command should you execute?
+
+  A. Get-AzureWebSiteLog -Name contosoweb -OutBuffer Error
+  B. Save-AzureWebSiteLog -Name contosoweb -Output Errors
+  C. Get-AzureWebSiteLog -Name contosoweb -Tail CMessage Error
+  D. Get-AzureWebSiteLog -Name contosoweb -Message Error
+35. HOTSPOT
+
+You manage two websites for your company. The sites are hosted on an internal server that is beginning to experience performances issues due to high traffic.
+
+You plan to migrate the sites to Azure Web Sites.
+
+The sites have the following configurations:
+
+
+
+In the table below, identity the web hosting plan with the lowest cost for each site. Make only one selection in each column.
+
+
+
+
+36. You administer an Azure Web Site named contoso. You create a job named Cleanlogs.cmd that will be executed manually, twice a week.
+
+You need to deploy the job.
+
+To which folder location should you deploy CleanLogs.cmd?
+
+  A. ./App_Code/jobs/triggered/cleanLogs/CleanLogs.cmd
+  B. ./App_Data/jobs/triggered/clean Logs/CleanLogs.cmd
+  C. ./App_Code/jobs/continuous/cleanLogs/CleanLogs.cmd
+  D. ./App_Data/jobs/continuous/cleanLogs/CleanLogs.cmd
+37. Your company network includes an On-Premises Windows Active Directory (AD) that has a DNS domain named contoso.local and an email domain named contoso.com. You plan to migrate from On-Premises Exchange to Office 365.
+
+You configure DirSync and set all Azure Active Directory (Azure AD) usernames as %username%@contoso.com
+
+You need to ensure that each user is able to log on by using the email domain as the username.
+
+Which two actions should you perform? Each correct answer presents part of the solution.
+
+  A. Verify the email domain in Azure AD domains.
+  B. Run the Set-MsolUserPrincipalName -UserPrincipalName %username%@contoso.onmicrosoft.com -NewUserPrincipalName %username %@contoso.com Power Shell cmdlet.
+  C. Edit the ProxyAddress attribute on the On-Premises Windows AD user account.
+  D. Verify the Windows AD DNS domain in Azure AD domains.
+  E. Update the On-Premises Windows AD user account UPN to match the email address.
+38. You develop a Windows Store application that has a web service backend.
+
+You plan to use the Azure Active Directory Authentication Library to authenticate users to Azure Active Directory (Azure AD) and access directory data on behalf of the user.
+
+You need to ensure that users can log in to the application by using their Azure AD credentials.
+
+Which two actions should you perform? Each correct answer presents part of the solution.
+
+  A. Create a native client application in Azure A
+  B. Configure directory integration.
+  C. Create a web application in Azure A
+  D. Enable workspace join.
+  E. Configure an Access Control namespace.
+39. Your company plans to migrate from On-Premises Exchange to Office 365.
+
+The existing directory has numerous service accounts in your On-Premises Windows Active Directory (AD), stored in separate AD Organizational Units (OU) for user accounts.
+
+You need to prevent the service accounts in Windows AD from syncing with Azure AD.
+
+What should you do?
+
+  A. Create an OU filter in the Azure AD Module for Windows PowerShell.
+  B. Configure directory partitions in miisclient.exe.
+  C. Set Active Directory ACLs to deny the DirSync Windows AD service account MSOL_AD_SYNC access to the service account OUs.
+  D. Create an OU filter in the Azure Management Portal.
+40. You manage an Azure Active Directory (AD) tenant
+
+You plan to allow users to log in to a third-party application by using their Azure AD credentials.
+
+To access the application, users will be prompted for their existing third-party user names and passwords.
+
+You need to add the application to Azure AD.
+
+Which type of application should you add?
+
+  A. Existing Single Sign-On with identity provisioning
+  B. Password Single Sign-On with identity provisioning
+  C. Existing Single Sign-On without identity provisioning
+  D. Password Single Sign-On without identity provisioning
+41. You plan to use Password Sync on your DirSync Server with Azure Active Directory (Azure AD) on your company network. You configure the DirSync server and complete an initial synchronization of the users.
+
+Several remote users are unable to log in to Office 365. You discover multiple event log entries for "Event ID 611 Password synchronization failed for domain."
+
+You need to resolve the password synchronization issue.
+
+Which two actions should you perform? Each correct answer presents part of the solution.
+
+  A. Restart Azure AD Sync Service.
+  B. Run the Set-FullPasswordSync Power Shell cmdlet.
+  C. Force a manual synchronization on the DirSync server.
+  D. Add the DirSync service account to the Schema Admins domain group.
+42. You administer an Access Control Service namespace named contosoACS that is used by a web application. ContosoACS currently utilizes Microsoft and Yahoo accounts.
+
+Several users in your organization have Google accounts and would like to access the web application through ContosoACS.
+
+You need to allow users to access the application by using their Google accounts.
+
+What should you do?
+
+  A. Register the application directly with Google.
+  B. Edit the existing Microsoft Account identity provider and update the realm to include Google.
+  C. Add a new Google identity provider.
+  D. Add a new WS-Federation identity provider and configure the WS-Federation metadata to point to the Google sign-in UR
+43. You publish an application named MyApp to Azure Active Directory (Azure AD). You grant access to the web APIs through OAuth 2.0.
+
+MyApp is generating numerous user consent prompts.
+
+You need to reduce the amount of user consent prompts.
+
+What should you do?
+
+  A. Enable Multi-resource refresh tokens.
+  B. Enable WS-federation access tokens.
+  C. Configure the Open Web Interface for .NE
+  D. Configure SAML 2.0.
+44. Your company network includes users in multiple directories.
+
+You plan to publish a software-as-a-service application named SaasApp1 to Azure Active Directory.
+
+You need to ensure that all users can access SaasApp1.
+
+What should you do?
+
+  A. Configure the Federation Metadata URL
+  B. Register the application as a web application.
+  C. Configure the application as a multi-tenant.
+  D. Register the application as a native client application.
+45. DRAG DROP
+
+You administer an Azure SQL database named contosodb that is running in Standard/S1 tier. The database is in a server named server1 that is a production environment. You also administer a database server named server2 that is a test environment. Both database servers are in the same subscription and the same region but are on different physical clusters.
+
+You need to copy contosodb to the test environment.
+
+Which three steps should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+46. You are migrating a local virtual machine (VM) to an Azure VM. You upload the virtual hard disk (VHD) file to Azure Blob storage as a Block Blob.
+
+You need to change the Block blob to a page blob.
+
+What should you do?
+
+  A. Delete the Block Blob and re-upload the VHD as a page blob.
+  B. Update the type of the blob programmatically by using the Azure Storage .NET SD
+  C. Update the metadata of the current blob and set the Blob-Type key to Page.
+  D. Create a new empty page blob and use the Azure Blob Copy Power Shell cmdlet to copy the current data to the new blob.
+47. You administer a Microsoft Azure SQL Database data base in the US Central region named contosodb. Contosodb runs on a Standard tier within the S1 performance level.
+
+You have multiple business-critical applications that use contosodb.
+
+You need to ensure that you can bring contosodb back online in the event of a natural disaster in the US Central region. You want to achieve this goal with the least amount of downtime.
+
+Which two actions should you perform? Each correct answer presents part of the solution.
+
+  A. Upgrade to S2 performance level.
+  B. Use active geo-replication.
+  C. Use automated Export.
+  D. Upgrade to Premium tier.
+  E. Use point in time restore.
+  F. Downgrade to Basic tier.
+48. DRAG DROP
+
+You manage an application deployed to a cloud service that utilizes an Azure Storage account.
+
+The cloud service currently uses the primary access key.
+
+Security policy requires that all shared access keys are changed without causing application downtime.
+
+Which three steps should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+49. You manage two datacenters in different geographic regions and one branch office.
+
+You plan to implement a geo-redundant backup solution.
+
+You need to ensure that each datacenter is a cold site for the other.
+
+You create a recovery vault. What should you do next?
+
+  A. Install the provider.
+  B. Upload a certificate to the vault.
+  C. Generate a vault key.
+  D. Set all virtual machines to DHC
+  E. Prepare System Center Virtual Machine Manager (SCVMM) servers.
+  F. Create mappings between the virtual machine (VM) networks.
+50. You manage a collection of large video files that is stored in an Azure Storage account.
+
+A user wants access to one of your video files within the next seven days.
+
+You need to allow the user access only to the video file, and then revoke access once the user no longer needs it.
+
+What should you do?
+
+  A. Give the user the secondary key for the storage account. Once the user is done with the file, regenerate the secondary key.
+  B. Create an Ad-Hoc Shared Access Signature for the Blob resource. Set the Shared Access Signature to expire in seven days.
+  C. Create an access policy on the container. Give the external user a Shared Access Signature for the blob by using the policy. Once the user is done with the file, delete the policy.
+  D. Create an access policy on the blob. Give the external user access by using the policy. Once the user is done with the file, delete the policy.
+51. You administer an Azure Storage account named contosostorage. The account has queue containers with logging enabled.
+
+You need to view all log files generated during the month of July 2014.
+
+Which URL should you use to access the list?
+
+  A. http://contosostorage.queue.core.windows.net/$logs? restype=container&comp=list&prefix=queue/2014/07
+  B. http://contosostorage.queue.core.windows.net/$files? restype=container&comp=list&prefix=queue/2014/07
+  C. http://contosostorage.blob.core.windows.net/$files? restype=container&comp=list&prefix=blob/2014/07
+  D. http://contosostorage.blob.core.windows.net/$logs? restype=container&comp=list&prefix=blob/2014/07
+52. Your company has two physical locations configured in a geo-clustered environment that includes:
+
+System Center2012 R2Virtual Machine Manager
+
+System Center2012 R2Data Protection Manager
+
+SQL Server 2012
+
+Windows Server 2012 R2 withtheHyper-V role
+
+Over 100 virtual machines (VMs) in each physical location
+
+Your company has recently signed up for Azure.
+
+You plan to leverage your current network environment to provide a backup solution for your VMs.
+
+You need to recommend a solution that ensures all VMs are redundant and deployable between locations. You also want the solution to minimize downtime in the event of an outage at either physical location.
+
+Which solution should you recommend?
+
+  A. Configure a backup vault in Azure and use Data Protection Manager to back up The Windows Servers.
+  B. Use Data Protection Manager and back up the VMs in each location.
+  C. Use Azure site recovery in an on-premises to Azure protection configuration.
+  D. Use Azure site recovery in an on-premises to on-premises protection configuration.
+53. You manage an application running on Azure Web Sites Standard tier. The application uses a substantial amount of large image files and is used by people around the world.
+
+Users from Europe report that the load time of the site is slow.
+
+You need to implement a solution by using Azure services.
+
+What should you do?
+
+  A. Configure Azure blob storage with a custom domain.
+  B. Configure Azure CDN to cache all responses from the application web endpoint.
+  C. Configure Azure Web Site auto-scaling to increase instances at high load.
+  D. Configure Azure CDN to cache site images and content stored in Azure blob storage.
+54. You manage a set of virtual machines (VMs) deployed to the cloud service named fabrikamVM.
+
+You configure auto scaling according to the following parameters:
+
+With an instance range of two to six instances
+
+To maintain CPU usage between 70 and 80 percent to scale up one instance at a time
+
+With a scale up wait time of 30 minutes
+
+To scale down one instance at a time
+
+With a scale down wait time of 30 minutes
+
+You discover the following usage pattern of a specific application:
+
+The application peaks very quickly, and the peak lasts for several hours.
+
+CPU usage stays above 90 percent for the first 1 to 1.5 hours after usage increases.
+
+After 1.5 hours, the CPU usage falls to about 75 percent until application usage begins to decline.
+
+You need to modify the auto scaling configuration to scale up faster when usage peaks.
+
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. Decrease the scale down wait time.
+  B. Decrease the scale up wait time.
+  C. Increase the number of scale up instances.
+  D. Increase the scale up wait time.
+  E. Increase the maximum number of instances.
+55. Your company network has two physical locations configured in a geo-clustered environment. You create a Blob storage account in Azure that contains all the data associated with your company.
+
+You need to ensure that the data remains available in the event of a site outage.
+
+Which storage option should you enable?
+
+  A. Locally redundant storage
+  B. Geo-redundant storage
+  C. Zone-redundant storage
+  D. Read-only geo-redundant storage
+56. You develop a set of Power Shell scripts that will run when you deploy new virtual machines (VMs).
+
+You need to ensure that the scripts are executed on new VMs. You want to achieve this goal by using the least amount of administrative effort.
+
+What should you do?
+
+  A. Create a new GPO to execute the scripts as a logon script.
+  B. Create a SetupComplete.cmd batch file to call the scripts after the VM starts.
+  C. Create a new virtual hard disk (VHD) that contains the scripts.
+  D. Load the scripts to a common file share accessible by the VMs.
+  E. Set the VMs to execute a custom script extension.
+57. You manage a virtual Windows Server 2012 web server that is hosted by an on-premises Windows Hyper-V server. You plan to use the virtual machine (VM) in Azure.
+
+You need to migrate the VM to Azure Storage to add it to your repository.
+
+Which Azure Power Shell cmdlet should you use?
+
+  A. Import-AzureVM
+  B. New-AzureVM
+  C. Add-AzureDisk
+  D. Add-AzureWebRole
+  E. Add-AzureVhd
+58. You administer a set of virtual machine (VM) guests hosted in Hyper-V on Windows Server 2012 R2.
+
+The virtual machines run the following operating systems:
+
+Windows Server 2008
+
+Windows Server 2008 R2
+
+Linux (open SUSE 13.1)
+
+All guests currently are provisioned with one or more network interfaces with static bindings and VHDX disks. You need to move the VMs to Azure Virtual Machines hosted in an Azure subscription.
+
+Which three actions should you perform? Each correct answer presents part of the solution.
+
+  A. Install the WALinuxAgent on Linux servers.
+  B. Ensure that all servers can acquire an IP by means of Dynamic Host Configuration Protocol (DHCP).
+  C. Upgrade all Windows VMs to Windows Server 2008 R2 or higher.
+  D. Sysprep all Windows servers.
+  E. Convert the existing virtual disks to the virtual hard disk (VHD) format.
+59. You administer a virtual machine (VM) that is deployed to Azure. You configure a rule to generate an alert when the average availability of a web service on your VM drops below 95 percent for 15 minutes.
+
+The development team schedules a one-hour maintenance period.
+
+You have the following requirements:
+
+No alerts are created during the maintenance period.
+
+Alerts can be restored when the maintenance is complete.
+
+You want to achieve this goal by using the least amount of administrative effort.
+
+What should you do from the Management Portal?
+
+  A. Select and disable the rule from the Dashboard page of the virtual machine.
+  B. Select and delete the rule from the Configure page of the virtual machine.
+  C. Select and disable the rule from the Monitor page of the virtual machine.
+  D. Select and disable the rule on the Configure page of the virtual machine.
+60. DRAG DROP
+
+You administer an Azure Virtual Machine (VM) named CON-CL1. CON-CL1 is in a cloud service named ContosoService1.
+
+You want to create a new VM named MyApp that will have a fixed IP address and be hosted by an Azure Datacenter in the US West region.
+
+You need to assign a fixed IP address to the MyApp VM.
+
+Which Azure Power Shell cmdlets and values should you use? To answer, drag the appropriate cmdlet or value to the correct location in the PowerShell command. Each cmdlet or value may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content
+
+
+
+
+61. You manage an Azure subscription with virtual machines (VMs) that are running in Standard mode.
+
+You need to reduce the storage costs associated with the VMs.
+
+What should you do?
+
+  A. Locate and remove orphaned disks.
+  B. Add the VMs to an affinity group.
+  C. Change VMs to the Basic tier.
+  D. Delete the VHD container.
+62. You manage several Azure virtual machines (VMs). You create a custom image to be used by employees on the development team.
+
+You need to ensure that the custom image is available when you deploy new servers.
+
+Which Azure Power Shell cmdlet should you use?
+
+  A. Update-AzureVMImage
+  B. Add-AzureVhd
+  C. Add-AzureVMImage
+  D. Update-AzureDisk
+  E. Add-AzureDataDisk
+63. You administer a cloud service.
+
+You plan to host two web applications named contosoweb and contosowebsupport.
+
+You need to ensure that you can host both applications and qualify for the Azure Service Level Agreement. You want to achieve this goal while minimizing costs.
+
+How should you host both applications?
+
+  A. in different web roles with two instances in each web role
+  B. in the same web role with two instances
+  C. in different web roles with one instance in each web role
+  D. in the same web role with one instance
+64. HOTSPOT
+
+You manage two cloud services named Service1 and Service2. The development team updates the code for each application and notifies you that the services are packaged and ready for deployment.
+
+Each cloud service has specific requirements for deployment according to the following table.
+
+
+
+In the table below, identify the deployment method for each service. Make only one selection in each column.
+
+
+
+
+65. DRAG DROP
+
+You plan to deploy a cloud service named contosoapp. The service includes a web role named contosowebrole. The web role has an endpoint named restrictedEndpoint.
+
+You need to allow access to restricted Endpoint only from your office machine using the IP address 145.34.67.82.
+
+Which values should you use within the service configuration file? To answer, drag the appropriate value to the correct location in the service configuration file. Each value may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+66. You manage a cloud service that utilizes an Azure Service Bus queue.
+
+You need to ensure that messages that are never consumed are retained.
+
+What should you do?
+
+  A. Check the MOVE TO THE DEAD-LETTER SUBQUEUE option for Expired Messages in the Azure Portal.
+  B. From the Azure Management Portal, create a new queue and name it Dead-Letter.
+  C. Execute the Set-AzureServiceBus PowerShell cmdlet.
+  D. Execute the New-AzureSchedulerStorageQueueJob PowerShell cmdlet.
+67. You manage a web application published to Azure Cloud Services.
+
+Your service level agreement (SLA) requires that you are notified in the event of poor performance from customer locations in the US, Asia, and Europe.
+
+You need to configure the Azure Management Portal to notify you when the SLA performance targets are not met.
+
+What should you do?
+
+  A. Create an alert rule to monitor web endpoints.
+  B. Create a Notification Hub alert with response time metrics.
+  C. Add an endpoint monitor and alert rule to the Notification Hub.
+  D. Configure the performance counter on the cloud service.
+68. You manage a cloud service that hosts a customer-facing application. The application allows users to upload images and create collages. The cloud service is running in two medium instances and utilizes Azure Queue storage for image processing. The storage account is configured to be locally redundant.
+
+The sales department plans to send a newsletter to potential clients. As a result, you expect a significant increase in global traffic.
+
+You need to recommend a solution that meets the following requirements:
+
+Configure the cloud service to ensure the application is responsive to the traffic increase.
+
+Minimize hosting and administration costs.
+
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. Configure the cloud service to run in two Large instances.
+  B. Configure the cloud service to auto-scale to three instances when processor utilization is above 80%.
+  C. Configure the storage account to be geo-redundant
+  D. Deploy a new cloud service in a separate data center. Use Azure Traffic Manager to load balance traffic between the cloud services.
+  E. Configure the cloud service to auto-scale when the queue exceeds 1000 entries per machine.
+69. You manage a cloud service on two instances. The service name is Service1 and the role name is ServiceRole1.
+
+Service1 has performance issues during heavy traffic periods.
+
+You need to increase the existing deployment of Service1 to three instances.
+
+Which Power Shell cmdlet should you use?
+
+  A. PS C:>Set-AzureService -ServiceName “Service1” -Label “ServiceRole1” -Description “Instance count=3”
+  B. PS C:>Set-AzureRole -ServiceName “Service1” -Slot “Production” -RoleName “ServiceRole1” -Count 3
+  C. PS C:>Add-AzureWebRole -Name “ServiceRole1” -Instances 3
+  D. PS C:> $instancecount = New-Object Hashtable$settings[“INSTANCECOUNT=3”] PS C:> Set-AzureWebsite -AppSettings $instancecount ServiceRole1
+70. DRAG DROP
+
+You plan to deploy a cloud service named contosoapp that has a web role named contosoweb and a worker role named contosoimagepurge.
+
+You need to ensure the service meets the following requirements:
+
+Contosoweb can be accessed over the Internet by using http.
+
+Contosoimagepurge can only be accessed through tcp port 5001 from contosoweb.
+
+Contosoimagepurge cannot be accessed directly over the Internet.
+
+Which configuration should you use? To answer, drag the appropriate configuration setting to the correct location in the service configuration file. Each configuration setting may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+71. Your company network includes two branch offices. Users at the company access internal virtual machines (VMs).
+
+You want to ensure secure communications between the branch offices and the internal VMs and network.
+
+You need to create a site-to-site VPN connection.
+
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. a private IPv4 IP address and a compatible VPN device
+  B. a private IPv4IP address and a RRAS running on Windows Server 2012
+  C. a public-facing IPv4 IP address and a compatible VPN device
+  D. a public-facing IPv4 IP address and a RRAS running on Windows Server 2012
+72. You manage an Azure virtual network that hosts 15 virtual machines (VMs) on a single subnet, which is used for testing a line of business (LOB) application. The application is deployed to a VM named TestWebServiceVM.
+
+You need to ensure that TestWebServiceVM always starts by using the same IP address. You need to achieve this goal by using the least amount of administrative effort.
+
+What should you do?
+
+  A. Use the Management Portal to configure TestWebServiceV
+  B. Use RDP to configure TestWebServiceV
+  C. Run the Set-AzureStaticVNetIPPowerShell cmdlet.
+  D. Run the Get-AzureReservedIP PowerShell cmdlet.
+73. DRAG DROP
+
+You administer two virtual machines (VMs) that are deployed to a cloud service. The VMs are part of a virtual network.
+
+The cloud service monitor and virtual network configuration are configured as shown in the exhibits. (Click the Exhibits button.)
+
+
+
+
+
+You need to create an internal load balancer named fabLoadBalancer that has a static IP address of 172.16.0.100.
+
+Which value should you use in each parameter of the Power Shell command?
+
+To answer, drag the appropriate value to the correct location in the Power Shell command. Each value may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content.
+
+
+
+
+74. DRAG DROP
+
+Your development team has created a new solution that is deployed in a virtual network named fabDevVNet.
+
+Your testing team wants to begin testing the solution in a second Azure subscription.
+
+You need to create a virtual network named fabTestVNet that is identical to fabDevVNet. You want to achieve this goal by using the least amount of administrative effort.
+
+Which three steps should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+75. Your network environment includes remote employees.
+
+You need to create a secure connection for the remote employees who require access to your Azure virtual network.
+
+What should you do?
+
+  A. Deploy Windows Server 2012 RRA
+  B. Configure a point-to-site VP
+  C. Configure an ExpressRoute.
+  D. Configure a site-to-site VP
+76. DRAG DROP
+
+You have a solution deployed into a virtual network in Azure named fabVNet. The fabVNet virtual network has three subnets named Apps, Web, and DB that are configured as shown in the exhibit. (Click the Exhibits button.)
+
+
+
+
+
+You want to deploy two new VMs to the DB subnet.
+
+You need to modify the virtual network to expand the size of the DB subnet to allow more IP addresses.
+
+Which three steps should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+77. DRAG DROP
+
+You manage two solutions in separate Azure subscriptions.
+
+You need to ensure that the two solutions can communicate on a private network.
+
+Which three actions should you perform in sequence? To answer, move the appropriate actions from the list of actions to the answer area and arrange them in the correct order.
+
+
+
+
+78. You manage a cloud service that has a web role named fabWeb. You create a virtual network named fabVNet that has two subnets defined as Web and Apps.
+
+You need to be able to deploy fabWeb into the Web subnet.
+
+What should you do?
+
+  A. Modify the service definition(csdef) for the cloud service.
+  B. Run the Set-AzureSubnet PowerShell cmdlet.
+  C. Run the Set-AzureVNetConfig PowerShell cmdlet.
+  D. Modify the network configuration file.
+  E. Modify the service configuration (cscfg) for the fabWeb web role.
+79. Your company has recently signed up for Azure.
+
+You plan to register a Data Protection Manager (DPM) server with the Azure Backup service.
+
+You need to recommend a method for registering the DPM server with the Azure Backup vault.
+
+What are two possible ways to achieve this goal? Each correct answer presents a complete solution.
+
+  A. Import a self-signed certificate created using the makecert tool.
+  B. Import a self-signed certificate created using the createcert tool.
+  C. Import an
+  D. 509 v3 certificate with valid clientauthentication EK
+  E. Import an
+  F. 509 v3 certificate with valid serverauthentication EK
+80. HOTSPOT
