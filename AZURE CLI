@@ -1,1 +1,103 @@
+AZURE CLI
 
+az group create --location “Eastus” --name sample-app 
+az appservice plan create --name sample-app-plan --resource-group sample-app --sku FREE 
+az appservice web create --name sample-app --resource-group sample-group --plan sample-app-plan 
+az appservice web source-control config-local-git --name sample-app --resource-group sample-app 
+ 
+git remote add azure “https://[url-result-from-previous-operation]” 
+git push azure master 
+
+We can then have the CLI launch a browser to view the new application.
+
+az appservice web browse --name sample-app --resource-group sample-app
+
+The benefits of using Resource Manager
+Resource Manager provides several benefits:
+
+You can deploy, manage, and monitor all the resources for your solution as a group, rather than handling these resources individually.
+You can repeatedly deploy your solution throughout the development lifecycle and have confidence your resources are deployed in a consistent state.
+You can manage your infrastructure through declarative templates rather than scripts.
+You can define the dependencies between resources so they're deployed in the correct order.
+You can apply access control to all services in your resource group because Role-Based Access Control (RBAC) is natively integrated into the management platform.
+You can apply tags to resources to logically organize all the resources in your subscription.
+You can clarify your organization's billing by viewing costs for a group of resources sharing the same tag.
+
+az group create --location
+                --name
+                [--tags]
+az group create -l westus -n MyResourceGroup
+az group delete -n MyResourceGroup
+
+VM:
+
+az vm create --name
+             --resource-group
+             [--accelerated-networking {false, true}]
+             [--admin-password]
+             [--admin-username]
+             [--asgs]
+             [--assign-identity]
+             [--attach-data-disks]
+             [--attach-os-disk]
+             [--authentication-type {password, ssh}]
+             [--availability-set]
+             [--boot-diagnostics-storage]
+             [--custom-data]
+             [--data-disk-caching]
+             [--data-disk-sizes-gb]
+             [--generate-ssh-keys]
+             [--image]
+             [--license-type {None, Windows_Client, Windows_Server}]
+             [--location]
+             [--nics]
+             [--no-wait]
+             [--nsg]
+             [--nsg-rule {RDP, SSH}]
+             [--os-disk-caching {None, ReadOnly, ReadWrite}]
+             [--os-disk-name]
+             [--os-disk-size-gb]
+             [--os-type {linux, windows}]
+             [--plan-name]
+             [--plan-product]
+             [--plan-promotion-code]
+             [--plan-publisher]
+             [--private-ip-address]
+             [--public-ip-address]
+             [--public-ip-address-allocation {dynamic, static}]
+             [--public-ip-address-dns-name]
+             [--public-ip-sku {Basic, Standard}]
+             [--role]
+             [--scope]
+             [--secrets]
+             [--size]
+             [--ssh-dest-key-path]
+             [--ssh-key-value]
+             [--storage-account]
+             [--storage-container-name]
+             [--storage-sku {Premium_LRS, StandardSSD_LRS, Standard_LRS, UltraSSD_LRS}]
+             [--subnet]
+             [--subnet-address-prefix]
+             [--tags]
+             [--ultra-ssd-enabled {false, true}]
+             [--use-unmanaged-disk]
+             [--validate]
+             [--vnet-address-prefix]
+             [--vnet-name]
+             [--zone {1, 2, 3}]
+             
+      az vm create -n MyVm -g MyResourceGroup --image UbuntuLTS
+      
+      Create a default Windows Server VM with a private IP address:
+      
+      az vm create -n MyVm -g MyResourceGroup --public-ip-address "" --image Win2012R2Datacenter
+      
+      Create a VM from a custom managed image:      
+      az vm create -g MyResourceGroup -n MyVm --image MyImage
+      
+      Create a Debian VM with SSH key authentication and a public DNS entry, located on an existing virtual network and availability set.
+      
+      az vm create -n MyVm -g MyResourceGroup --image debian --vnet-name MyVnet --subnet subnet1 \
+                            --availability-set MyAvailabilitySet --public-ip-address-dns-name MyUniqueDnsName \
+                            --ssh-key-value @key-file
+      Create a simple Ubuntu Linux VM with a public IP address, DNS entry, two data disks (10GB and 20GB), and then generate ssh key pairs
